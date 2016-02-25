@@ -40,7 +40,7 @@
     - name: "adresbench"
     - generator_binds: {query: woordje, nummer: nummer}
     - headers: {'Content-Type': 'application/json'}
-    - url: {template: "/atlas/adres/?q=$query%20$nummer"}
+    - url: {template: "/atlas/search/adres/?q=$query%20$nummer"}
     - warmup_runs: 0
     - 'benchmark_runs': 10
     - output_file: 'adres_bench.json'
@@ -48,11 +48,14 @@
         - total_time: total
         - total_time: mean
 
-
 - test:
     - name: "zoekadres"
     - headers: {'Content-Type': 'application/json'}
-    - url: "/atlas/search/postcode/?q=1013"
+    - url: "/atlas/search/postcode/?q=1018"
+    - validators:
+        - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
+        - extract_test: {jsonpath_mini: "results", test: "exists"}
+        - compare: {jsonpath_mini: "results.0.straatnaam", comparator: "eq", expected: "Nieuwe Achtergracht"}
 
 
 - test:
@@ -65,7 +68,6 @@
         - extract_test: {jsonpath_mini: "results", test: "exists"}
         - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
 
-
 - test:
     - name: "nummeraanduidingsearch"
     - headers: {'Content-Type': 'application/json'}
@@ -74,6 +76,8 @@
         - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
         - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
         - extract_test: {jsonpath_mini: "results", test: "exists"}
+        - compare: {jsonpath_mini: "results.0.straatnaam", comparator: "eq", expected: "Rozengracht"}
+        - compare: {jsonpath_mini: "results.0.huisnummer", comparator: "eq", expected: 2}
 
 #
 #

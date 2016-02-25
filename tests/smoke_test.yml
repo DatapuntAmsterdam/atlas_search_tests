@@ -12,17 +12,17 @@
                 max_lenght: 2, character_set: digits }
 
 
-#- test:
-#    - name: "zoekadres"
-#    - headers: {'Content-Type': 'application/json'}
-#    - url: "/atlas/search/adres/?q=silodam"
-#
-#
-#- test:
-#    - name: "typeahead"
-#    - headers: {'Content-Type': 'application/json'}
-#    - url: "/atlas/typeahead/?q=silodam"
-#
+- test:
+    - name: "zoekadres"
+    - headers: {'Content-Type': 'application/json'}
+    - url: "/atlas/search/adres/?q=silodam"
+
+
+- test:
+    - name: "typeahead"
+    - headers: {'Content-Type': 'application/json'}
+    - url: "/atlas/typeahead/?q=silodam"
+
 
 - benchmark:
     - name: "autocompletebench"
@@ -30,8 +30,8 @@
     - headers: {'Content-Type': 'application/json'}
     - url: {template: "/atlas/typeahead/?q=$query"}
     - warmup_runs: 0
-    - 'benchmark_runs': 1000
-    - output_file: 'bench.json'
+    - 'benchmark_runs': 10
+    - output_file: 'autocomplete_bench.json'
     - metrics:
         - total_time: total
         - total_time: mean
@@ -42,40 +42,39 @@
     - headers: {'Content-Type': 'application/json'}
     - url: {template: "/atlas/adres/?q=$query%20$nummer"}
     - warmup_runs: 0
-    - 'benchmark_runs': 1000
-    - output_file: 'bench.json'
+    - 'benchmark_runs': 10
+    - output_file: 'adres_bench.json'
     - metrics:
         - total_time: total
         - total_time: mean
 
 
-#- test:
-#    - name: "zoekadres"
-#    - headers: {'Content-Type': 'application/json'}
-#    - url: "/atlas/search/postcode/?q=1013"
-#
-#
-#- test:
-#    - name: "subjectsearch"
-#    - headers: {'Content-Type': 'application/json'}
-#    - url: "/atlas/search/kadastraalsubject/?q=Stephan%20preeker"
-#    - validators:
-#        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
-#        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
-#        - extract_test: {jsonpath_mini: "results", test: "exists"}
-#        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
-#
-#
-#- test:
-#    - name: "nummeraanduidingsearch"
-#    - headers: {'Content-Type': 'application/json'}
-#    - url: "/atlas/search/adres/?q=rozengracht%202"
-#    - validators:
-#        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
-#        - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
-#        - extract_test: {jsonpath_mini: "results", test: "exists"}
-#        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
-#
+- test:
+    - name: "zoekadres"
+    - headers: {'Content-Type': 'application/json'}
+    - url: "/atlas/search/postcode/?q=1013"
+
+
+- test:
+    - name: "subjectsearch"
+    - headers: {'Content-Type': 'application/json'}
+    - url: "/atlas/search/kadastraalsubject/?q=Stephan%20preeker"
+    - validators:
+        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
+        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
+        - extract_test: {jsonpath_mini: "results", test: "exists"}
+        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
+
+
+- test:
+    - name: "nummeraanduidingsearch"
+    - headers: {'Content-Type': 'application/json'}
+    - url: "/atlas/search/adres/?q=rozengracht%202"
+    - validators:
+        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
+        - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
+        - extract_test: {jsonpath_mini: "results", test: "exists"}
+
 #
 #
 #

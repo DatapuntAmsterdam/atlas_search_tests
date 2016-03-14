@@ -1,0 +1,3 @@
+
+smoketest:
+  build: .

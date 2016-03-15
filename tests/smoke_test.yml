@@ -2,8 +2,8 @@
 ---
 - config:
     - testset: "Atlas search app tests"
+    - variable_binds: {'headername': 'Content-Type', 'headervalue': 'application/json'}
     - generators:
-        # Generator named 'id' that counts up from 10
         - 'woordje': {
                 type: 'random_text', min_length: 2,
                 max_lenght: 4, character_set: alphanumeric }
@@ -14,7 +14,6 @@
 
 - test:
     - name: "zoekadres"
-    - headers: {'Content-Type': 'application/json'}
     - url: "/atlas/search/adres/?q=silodam"
 
 
@@ -24,10 +23,10 @@
     - url: "/atlas/typeahead/?q=silodam"
 
 
+
 - benchmark:
     - name: "autocompletebench"
     - generator_binds: {query: woordje}
-    - headers: {'Content-Type': 'application/json'}
     - url: {template: "/atlas/typeahead/?q=$query"}
     - warmup_runs: 0
     - 'benchmark_runs': 10
@@ -39,7 +38,6 @@
 - benchmark:
     - name: "adresbench"
     - generator_binds: {query: woordje, nummer: nummer}
-    - headers: {'Content-Type': 'application/json'}
     - url: {template: "/atlas/search/adres/?q=$query%20$nummer"}
     - warmup_runs: 0
     - 'benchmark_runs': 10
@@ -48,9 +46,30 @@
         - total_time: total
         - total_time: mean
 
+
+- test:
+    - name: "typeaheadtest"
+    - url: "/atlas/typeahead/?q=steph"
+    - validators:
+        - compare: {raw_body:, comparator: "contains", expected: "Stephan"}
+
+
+- test:
+    - name: "typeaheadtest"
+    - url: "/atlas/typeahead/?q=steph"
+    - validators:
+        - compare: {raw_body:, comparator: "contains", expected: "StephanISSUPER!"}
+
+
+- test:
+    - name: "typeaheadpostcode"
+    - url: "/atlas/typeahead/?q=1013"
+    - validators:
+        - compare: {raw_body:, comparator: "contains", expected: "1013"}
+
+
 - test:
     - name: "zoekadres"
-    - headers: {'Content-Type': 'application/json'}
     - url: "/atlas/search/postcode/?q=1018"
     - validators:
         - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
@@ -60,7 +79,6 @@
 
 - test:
     - name: "subjectsearch"
-    - headers: {'Content-Type': 'application/json'}
     - url: "/atlas/search/kadastraalsubject/?q=Stephan%20preeker"
     - validators:
         - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
@@ -70,7 +88,6 @@
 
 - test:
     - name: "nummeraanduidingsearch"
-    - headers: {'Content-Type': 'application/json'}
     - url: "/atlas/search/adres/?q=rozengracht%202"
     - validators:
         - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}

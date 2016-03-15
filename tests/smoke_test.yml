@@ -55,13 +55,6 @@
 
 
 - test:
-    - name: "typeaheadtest"
-    - url: "/atlas/typeahead/?q=steph"
-    - validators:
-        - compare: {raw_body:, comparator: "contains", expected: "StephanISSUPER!"}
-
-
-- test:
     - name: "typeaheadpostcode"
     - url: "/atlas/typeahead/?q=1013"
     - validators:

@@ -8,8 +8,7 @@ vervuilen.
 
 Intstall
 
-- maak een virtualenv voor pyhton2.7 !
--   mkvirtualenv --python=python2.7 search_test27
+- mkvirtualenv search_test
 - pip install -r requirements.txt
 
 Runtests

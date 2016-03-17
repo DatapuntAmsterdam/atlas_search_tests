@@ -53,6 +53,12 @@
     - validators:
         - compare: {raw_body:, comparator: "contains", expected: "Stephan"}
 
+- test:
+    - name: "typeaheadtest"
+    - url: "/atlas/typeahead/?q=rozengracht%202"
+    - validators:
+        - compare: {raw_body:, comparator: "contains", expected: "Rozengracht 2A"}
+
 
 - test:
     - name: "typeaheadpostcode"

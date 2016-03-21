@@ -18,11 +18,16 @@
 
 
 - test:
-    - name: "typeahead"
+    - name: "typeahead_silodam"
     - headers: {'Content-Type': 'application/json'}
     - url: "/atlas/typeahead/?q=silodam"
 
-
+- test:
+    - name: "typeahead_slashes"
+    - headers: {'Content-Type': 'application/json'}
+    - url: "/atlas/typeahead/?q=scheldestraat%2054\\"
+    - validators:
+        - compare: {jsonpath_mini: "Straatnamen.0.item", comparator: "eq", expected: "Scheldestraat"}
 
 - benchmark:
     - name: "autocompletebench"
@@ -69,7 +74,7 @@
 
 - test:
     - name: "zoekadres"
-    - url: "/atlas/search/postcode/?q=1018"
+    - url: "/atlas/search/postcode/?q=1018%20WR"
     - validators:
         - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
         - extract_test: {jsonpath_mini: "results", test: "exists"}

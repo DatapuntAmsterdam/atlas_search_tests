@@ -27,7 +27,7 @@
     - headers: {'Content-Type': 'application/json'}
     - url: "/atlas/typeahead/?q=scheldestraat"
     - validators:
-        - compare: {jsonpath_mini: "Straatnamen.0.item", comparator: "eq", expected: "Scheldestraat"}
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Scheldestraat"}
 
 - benchmark:
     - name: "autocompletebench"
@@ -69,7 +69,7 @@
     - name: "typeaheadpostcode"
     - url: "/atlas/typeahead/?q=1013"
     - validators:
-        - compare: {raw_body:, comparator: "contains", expected: "1013"}
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Brouwersgracht"}
 
 
 - test:

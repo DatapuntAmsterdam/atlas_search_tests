@@ -1,0 +1,172 @@
+
+---
+- config:
+    - testset: "Atlas search app tests"
+    - variable_binds: {'headername': 'Content-Type', 'headervalue': 'application/json'}
+    - generators:
+        - 'woordje': {
+                type: 'random_text', min_length: 2,
+                max_lenght: 4, character_set: alphanumeric }
+        - 'nummer': {
+                type: 'random_text', min_length: 1,
+                max_lenght: 2, character_set: digits }
+
+
+- test:
+    - name: "typeahead_silodam"
+    - headers: {'Content-Type': 'application/json'}
+    - url: "/atlas/typeahead/?q=silodam"
+
+- test:
+    - name: "typeahead_slashes"
+    - headers: {'Content-Type': 'application/json'}
+    - url: "/atlas/typeahead/?q=scheldestraat"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Scheldestraat"}
+
+- benchmark:
+    - name: "autocompletebench"
+    - generator_binds: {query: woordje}
+    - url: {template: "/atlas/typeahead/?q=$query"}
+    - warmup_runs: 0
+    - 'benchmark_runs': 10
+    - output_file: 'autocomplete_bench.json'
+    - metrics:
+        - total_time: total
+        - total_time: mean
+
+
+- test:
+    - name: "typeaheadtest"
+    - url: "/atlas/typeahead/?q=steph"
+    - validators:
+        - compare: {raw_body:, comparator: "contains", expected: "Stephan"}
+
+- test:
+    - name: "typeaheadtest"
+    - url: "/atlas/typeahead/?q=rozengracht%202"
+    - validators:
+        - compare: {raw_body:, comparator: "contains", expected: "Rozengracht 2A"}
+
+
+- test:
+    - name: "typeaheadpostcode"
+    - url: "/atlas/typeahead/?q=1013"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Brouwersgracht"}
+
+# Rob's tests set
+- test:
+    - name: "Typeahead Partial street name"
+    - url: "/atlas/typeahead/?q=linnae"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display" comparator: "eq", expected: "Linnaeusdwarsstraat"
+        - compare: {raw_body:, comparator: "not_contains", expected: "Volkstuinenpark Linnaeus"}
+
+- test:
+    - name: "Typeahead Partial with metro"
+    - url: "/atlas/typeahead/?q=weesper"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Weesperstraat"}
+        - compare: {jsonpath_mini: "4.content.0._display", comparator: "eq", expected: "Metrostation Weesperstraat"}
+        - compare: {raw_body:, comparator: "not_contains", expected: "Weesperpoort"}
+        - compare: {raw_body:, comparator: "not_contains", expected: "Weespertrekvaart"}
+- test:
+    - name: "Typeahead Partial Prefix on Later Words" 
+    - url: "/atlas/typeahead/?q=oyeweg"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Baron Schimmelpenninck van der Oyeweg"}
+
+- test:
+    - name: "Typeahead punctations in street name"
+    - url: "/atlas/typeahead/?q=p.c.%20hooft"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0_display", comparator: "eq", expected: "Pieter Cornelisz. Hooftstraat"}
+
+- test:
+    - name: "Typeahead full address from street name"
+    - url: "/atlas/typeahead/?q=Linnaeusstraat%202"
+    - validators:
+        - compare: {raw_body:, comparator: "not_contains", expected: "Linnaeusstraat"}
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat 2"}
+        - compare: {jsonpath_mini: "0.content.1._display", comparator: "eq", expected: "Linnaeusstraat 2A"}
+        - compare: {jsonpath_mini: "0.content.6._display", comparator: "eq", expected: "Linnaeusstraat 20-1A"}
+        - compare: {raw_body:, comparator: "not_contains", expected: "Linnaeusstraat 18-2"}
+        - compare: {raw_body:, comparator: "not_contains", expected: "Linnaeusstraat 32"}
+
+- test:
+    - name: "Typeahead full address with house number ext. space"
+    - url: "/atlas/typeahead/?q=Linnaeusstraat%2020%20H"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat 20-H"}
+
+- test:
+    - name: "Typeahead full address with house number ext. no space"
+    - url: "/atlas/typeahead/?q=Linnaeusstraat%2020H"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat 20-H"}
+
+- test:
+    - name: "Typeahead full address with ext. no space no wrong insert"
+    - url: "/atlas/typeahead/?q=Linnaeusstraat%20201A"
+    - vaidators:
+        - compare: {raw_body:, comparator: "not_contains", expected: "Linnaeusstraat 201A"}
+
+- test:
+    - name: "Typeahead full address with ext. dash"
+    - url: "/atlas/typeahead/?q=Nieuwe%20Leliestraat%20190A-H"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Leliestraat 190A-H"}
+
+- test:
+    - name: "Typeahead full address with ext. no space"
+    - url: "/atlas/typeahead/?q=Nieuwe%20Leliestraat%20190AH"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Leliestraat 190A-H"}
+
+- test:
+    - name: "Typeahead full address with ext. space"
+    - url: "/atlas/typeahead/?q=Nieuwe%20Leliestraat%20190A%20H"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Leliestraat 190A-H"}
+
+- test:
+    - name: "Typeahead full address with ext. lower case"
+    - url: "/atlas/typeahead/?q=nieuwe%20leliestraat%20190A-H"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Leliestraat 190A-H"}
+
+- test:
+    - name: "Typeahead postcode search"
+    - url: "/atlas/typeahead/?q=1092"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "'s-Gravesandestraat"}
+        - compare: {raw_body:, comparator: "not_contains", expected: "Carolina MacGillavrylaan 1092" }
+        - compare: {raw_body:, comparator: "contains", expected: "Hertzogstraat"}
+
+- test:
+    - name: "Typeahead full postcode with space"
+    - url: "/atlas/typeahead/?q=1092%20CK"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat"}
+        - compare: {jsonpath_mini: "1.content.0._display", comparator: "eq", expected: "Linnaeusstraat 2"}
+        - compare: {jsonpath_mini: "1.content.5._display", comparator: "eq", expected: "Linnaeusstraat 4-1"}
+
+- test:
+    - name: "Typeahead full postcode no space"
+    - url: "/atlas/typeahead/?q=1092CK"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat"}
+        - compare: {jsonpath_mini: "1.content.0._display", comparator: "eq", expected: "Linnaeusstraat 2"}
+        - compare: {jsonpath_mini: "1.content.5._display", comparator: "eq", expected: "Linnaeusstraat 4-1"}
+
+
+- test:
+    - name: "Typeahead full postcode no space lowercase"
+    - url: "/atlas/typeahead/?q=1092ck"
+    - validators:
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat"}
+        - compare: {jsonpath_mini: "1.content.0._display", comparator: "eq", expected: "Linnaeusstraat 2"}
+        - compare: {jsonpath_mini: "1.content.5._display", comparator: "eq", expected: "Linnaeusstraat 4-1"}
+
+

@@ -87,7 +87,7 @@
     - name: "Typeahead full address from street name"
     - url: "/atlas/typeahead/?q=Linnaeusstraat%202"
     - validators:
-        - compare: {raw_body:, comparator: "regex", expected: "Linnaeusstraat"}
+        #- compare: {raw_body:, comparator: "regex", expected: "Linnaeusstraat"}
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat 2"}
         - compare: {jsonpath_mini: "0.content.1._display", comparator: "eq", expected: "Linnaeusstraat 2A"}
         - compare: {jsonpath_mini: "0.content.6._display", comparator: "eq", expected: "Linnaeusstraat 20-1A"}
@@ -173,7 +173,7 @@
     - name: "Typeahead full address from postcode"
     - url: "/atlas/typeahead/?q=1092ck%202"
     - validators:
-        - compare: {raw_body:, comparator: "regex", expected: "Linnaeusstraat"}
+        #- compare: {raw_body:, comparator: "regex", expected: "Linnaeusstraat"}
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat 2"}
         - compare: {jsonpath_mini: "0.content.1._display", comparator: "eq", expected: "Linnaeusstraat 2A"}
         - compare: {jsonpath_mini: "0.content.6._display", comparator: "eq", expected: "Linnaeusstraat 20-1A"}

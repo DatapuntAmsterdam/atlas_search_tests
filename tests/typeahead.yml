@@ -67,8 +67,8 @@
     - name: "Typeahead Partial with metro"
     - url: "/atlas/typeahead/?q=weesper"
     - validators:
-        - compare: {jsonpath_mini: "0.content.4._display", comparator: "eq", expected: "Weesperstraat"}
-        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Metrostation Weesperstraat"}
+        - compare: {jsonpath_mini: "0.content.2._display", comparator: "eq", expected: "Weesperstraat"}
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Metrostation Weesperplein"}
         #- compare: {raw_body:, comparator: "regex", expected: "Weesperpoort"}
         #- compare: {raw_body:, comparator: "regex", expected: "Weespertrekvaart"}
 - test:
@@ -89,7 +89,7 @@
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat 2"}
         - compare: {jsonpath_mini: "0.content.1._display", comparator: "eq", expected: "Linnaeusstraat 2A"}
-        - compare: {jsonpath_mini: "0.content.6._display", comparator: "eq", expected: "Linnaeusstraat 20-1A"}
+        - compare: {jsonpath_mini: "0.content.5._display", comparator: "eq", expected: "Linnaeusstraat 20-1A"}
         #- compare: {raw_body:, comparator: "regex", expected: "Linnaeusstraat 18-2"}
         #- compare: {raw_body:, comparator: "regex", expected: "Linnaeusstraat 32"}
 

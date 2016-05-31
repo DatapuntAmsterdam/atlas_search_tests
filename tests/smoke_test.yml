@@ -17,29 +17,6 @@
     - url: "/atlas/search/adres/?q=silodam"
 
 
-- test:
-    - name: "typeahead_silodam"
-    - headers: {'Content-Type': 'application/json'}
-    - url: "/atlas/typeahead/?q=silodam"
-
-- test:
-    - name: "typeahead_slashes"
-    - headers: {'Content-Type': 'application/json'}
-    - url: "/atlas/typeahead/?q=scheldestraat"
-    - validators:
-        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Scheldestraat"}
-
-- benchmark:
-    - name: "autocompletebench"
-    - generator_binds: {query: woordje}
-    - url: {template: "/atlas/typeahead/?q=$query"}
-    - warmup_runs: 0
-    - 'benchmark_runs': 10
-    - output_file: 'autocomplete_bench.json'
-    - metrics:
-        - total_time: total
-        - total_time: mean
-
 - benchmark:
     - name: "adresbench"
     - generator_binds: {query: woordje, nummer: nummer}
@@ -50,26 +27,6 @@
     - metrics:
         - total_time: total
         - total_time: mean
-
-
-- test:
-    - name: "typeaheadtest"
-    - url: "/atlas/typeahead/?q=steph"
-    - validators:
-        - compare: {raw_body:, comparator: "contains", expected: "Stephan"}
-
-#- test:
-#    - name: "typeaheadtest"
-#    - url: "/atlas/typeahead/?q=rozengracht%202"
-#    - validators:
-#        - compare: {raw_body:, comparator: "contains", expected: "Rozengracht 2A"}
-#
-
-- test:
-    - name: "typeaheadpostcode"
-    - url: "/atlas/typeahead/?q=1013"
-    - validators:
-        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Brouwersgracht"}
 
 
 - test:
@@ -100,8 +57,3 @@
         - compare: {jsonpath_mini: "results.0.straatnaam", comparator: "eq", expected: "Rozengracht"}
         - compare: {jsonpath_mini: "results.0.huisnummer", comparator: "eq", expected: 2}
 
-#
-#
-#
-#
-#

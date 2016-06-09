@@ -31,21 +31,22 @@
 
 - test:
     - name: "zoekadres"
-    - url: "/atlas/search/postcode/?q=1018%20WR"
+    - url: "/atlas/search/postcode/?q=1018WR"
     - validators:
-        - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
+        - compare: {jsonpath_mini: "count", comparator: "ge", expected: 1}
         - extract_test: {jsonpath_mini: "results", test: "exists"}
-        - compare: {jsonpath_mini: "results.0.straatnaam", comparator: "eq", expected: "Nieuwe Achtergracht"}
+        - compare: {jsonpath_mini: "results.0.type", comparator: "eq", expected: "Openbare ruimte"}
+        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Nieuwe Achtergracht"}
 
 
-- test:
-    - name: "subjectsearch"
-    - url: "/atlas/search/kadastraalsubject/?q=Stephan%20preeker"
-    - validators:
-        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
-        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
-        - extract_test: {jsonpath_mini: "results", test: "exists"}
-        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
+  #- test:
+  #    - name: "subjectsearch"
+  #    - url: "/atlas/search/kadastraalsubject/?q=Stephan%20preeker"
+  #    - validators:
+  #        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
+  #        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
+  #        - extract_test: {jsonpath_mini: "results", test: "exists"}
+  #        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
 
 - test:
     - name: "nummeraanduidingsearch"

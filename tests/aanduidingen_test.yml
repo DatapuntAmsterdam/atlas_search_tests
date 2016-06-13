@@ -23,9 +23,8 @@
     - name: "zoekadres_pcode"
     - url: "/atlas/search/postcode/?q=1018WR"
     - validators:
-        - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
         - extract_test: {jsonpath_mini: "results", test: "exists"}
-        - compare: {jsonpath_mini: "results.0.straatnaam", comparator: "eq", expected: "Nieuwe Achtergracht"}
+        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Nieuwe Achtergracht"}
 
 - test:
     - name: "nummeraanduidingsearch"

@@ -54,7 +54,7 @@ a2-extra,21,Tweede Jan van der Heijdenstraat 50 2 RA,50 2 RA,Tweede Jan van der 
 ,,,,,,,,,,
 ,,,,,,,,,,
 p1,1,1072,,Eerste Jan van der Heijdenstraat,weg,eq,eq,1,,
-p1,2f,1072,,Carolina MacGillavrylaan 1072,weg,not eq,not eq,,,
+p1,2f,1072,,Carolina MacGillavrylaan 1072,vbo,not eq,not eq,,,
 p1,3,1072,,Eerste Jacob van Campenstraat,weg,eq,eq,,,ontbreekt in huidige versie
 p2,1,1072 TT,,Eerste Jan van der Heijdenstraat,weg,eq,eq,,,
 p2,2f,1072 TT,,Eerste Jan van der Heijdenstraat 2,vbo,not eq,not eq,1,,
@@ -70,8 +70,8 @@ p3,f5,1072 TT 2,,Eerste Jan van der Heijdenstraat 16-2,vbo,not eq,not eq,,,
 p3,f6,1072 TT 2,,Eerste Jan van der Heijdenstraat 32-1,vbo,not eq,not eq,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
-z,1,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 27-1,vbo,eq,eq,,,"nummer wel in deze straat,"
-z,f2,1072 TT 2,,Eerste Jan van der Heijdenstraat 27-1,vbo,not eq,not eq,,,maar niet met deze postcode
+z,1,Eerste Jan van der Heijdenstraat 27,,Eerste Jan van der Heijdenstraat 27-1,vbo,eq,eq,,,"nummer wel in deze straat,"
+z,f2,1072 TT 27,,Eerste Jan van der Heijdenstraat 27-1,vbo,not eq,not eq,,,maar niet met deze postcode
 ,,,,,,,,,,
 p3-extra,1,1072TT 4A,4A,Eerste Jan van der Heijdenstraat 4A,vbo,eq,eq,,,
 p3-extra,2,1072TT 4 A,4 A,Eerste Jan van der Heijdenstraat 4A,vbo,eq,eq,,,
@@ -102,9 +102,8 @@ b1,1,AN30,,AN30,bouwblok,eq,eq,1,,
 b1,f2,AN3,,AN30,bouwblok,not eq,not eq,,,vanaf vier posities pas matchen
 b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,
 ,,,,,,,,,,
-s1,1,linnae,,Vereniging Van Eigenaars Linnaeusstraat 12,kad. subject,eq,eq,,,
-s1,2,linnae,,IEF Berlage Amsterdam (Linnaeusstraat) B.V.,kad. subject,eq,eq,1,,
-s1,3,naeusstraat,,Vereniging Van Eigenaars Linnaeusstraat 12,kad. subject,eq,eq,,,
+s1,1,linnae,,Vereniging Van Eigenaars Linnaeusstraat,kad. subject,eq,eq,,,minimaal een
+s1,2,linnaeus,,IEF Berlage Amsterdam (Linnaeusstraat) B.V.,kad. subject,eq,eq,1,,nu alleen prefix matchen
 s2,1,Linnaeusstraat 6,,"""Vereniging Van Eigenaars Linnaeusstraat 61 Te Amsterdam""",kad. subject,eq,eq,1,,
 ,,,,,,,,,,
 o1,,,,,,,,,,

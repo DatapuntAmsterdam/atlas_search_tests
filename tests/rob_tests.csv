@@ -19,7 +19,7 @@ a1,11,1e Glanshof 2,,1e Glanshof 2,vbo,eq,eq,,,
 a2,1f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat,weg,not eq,not eq,,,"huisnummer ingevoerd, dus gebruiker wil vermoedelijk niet de openbare ruimte bekijken"
 a2,2,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 2,vbo,eq,eq,1,,
 a2,3,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 20-3,vbo,eq,eq,2,,
-a2,4,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 22-2A,vbo,eq,eq,6,,
+a2,4,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 22-1A,vbo,eq,eq,6,,
 a2,5f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 16-2,vbo,not eq,not eq,,,
 a2,6f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 32-1,vbo,not eq,not eq,,,
 a2,7,Tweede Jan van der Heijdenstraat 19 H,,Tweede Jan van der Heijdenstraat 19-H,vbo,eq,eq,,,"interpunctie negeren in huisnummers e.d. (Huisnummer, Huisletter, Huisnummertoevoeging)"
@@ -65,7 +65,7 @@ p2,f6,1072TT,,Eerste Jan van der Heijdenstraat 22-2A,vbo,not eq,not eq,6,,
 p3,f1,1072 TT 2,,Eerste Jan van der Heijdenstraat,weg,not eq,not eq,,,
 p3,2,1072 TT 2,,Eerste Jan van der Heijdenstraat 2,vbo,eq,eq,1,,
 p3,3,1072 TT 2,,Eerste Jan van der Heijdenstraat 20-3,vbo,eq,eq,2,,
-p3,4,1072 TT 2,,Eerste Jan van der Heijdenstraat 22-2A,vbo,eq,eq,6,,
+p3,4,1072 TT 2,,Eerste Jan van der Heijdenstraat 22-1A,vbo,eq,eq,6,,
 p3,f5,1072 TT 2,,Eerste Jan van der Heijdenstraat 16-2,vbo,not eq,not eq,,,
 p3,f6,1072 TT 2,,Eerste Jan van der Heijdenstraat 32-1,vbo,not eq,not eq,,,
 ,,,,,,,,,,
@@ -102,7 +102,7 @@ b1,1,AN30,,AN30,bouwblok,eq,eq,1,,
 b1,f2,AN3,,AN30,bouwblok,not eq,not eq,,,vanaf vier posities pas matchen
 b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,
 ,,,,,,,,,,
-s1,1,linnae,,Vereniging Van Eigenaars Linnaeusstraat,kad. subject,eq,eq,,,minimaal een
+s1,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,eq,eq,,,minimaal een
 s1,2,linnaeus,,IEF Berlage Amsterdam (Linnaeusstraat) B.V.,kad. subject,eq,eq,1,,nu alleen prefix matchen
 s2,1,Linnaeusstraat 6,,"""Vereniging Van Eigenaars Linnaeusstraat 61 Te Amsterdam""",kad. subject,eq,eq,1,,
 ,,,,,,,,,,

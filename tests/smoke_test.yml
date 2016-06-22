@@ -17,29 +17,6 @@
     - url: "/atlas/search/adres/?q=silodam"
 
 
-- test:
-    - name: "typeahead_silodam"
-    - headers: {'Content-Type': 'application/json'}
-    - url: "/atlas/typeahead/?q=silodam"
-
-- test:
-    - name: "typeahead_slashes"
-    - headers: {'Content-Type': 'application/json'}
-    - url: "/atlas/typeahead/?q=scheldestraat"
-    - validators:
-        - compare: {jsonpath_mini: "Straatnamen.0.item", comparator: "eq", expected: "Scheldestraat"}
-
-- benchmark:
-    - name: "autocompletebench"
-    - generator_binds: {query: woordje}
-    - url: {template: "/atlas/typeahead/?q=$query"}
-    - warmup_runs: 0
-    - 'benchmark_runs': 10
-    - output_file: 'autocomplete_bench.json'
-    - metrics:
-        - total_time: total
-        - total_time: mean
-
 - benchmark:
     - name: "adresbench"
     - generator_binds: {query: woordje, nummer: nummer}
@@ -53,55 +30,31 @@
 
 
 - test:
-    - name: "typeaheadtest"
-    - url: "/atlas/typeahead/?q=steph"
-    - validators:
-        - compare: {raw_body:, comparator: "contains", expected: "Stephan"}
-
-#- test:
-#    - name: "typeaheadtest"
-#    - url: "/atlas/typeahead/?q=rozengracht%202"
-#    - validators:
-#        - compare: {raw_body:, comparator: "contains", expected: "Rozengracht 2A"}
-#
-
-- test:
-    - name: "typeaheadpostcode"
-    - url: "/atlas/typeahead/?q=1013"
-    - validators:
-        - compare: {raw_body:, comparator: "contains", expected: "1013"}
-
-
-- test:
     - name: "zoekadres"
-    - url: "/atlas/search/postcode/?q=1018%20WR"
+    - url: "/atlas/search/postcode/?q=1018WR"
     - validators:
-        - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
+        # - compare: {jsonpath_mini: "count", comparator: "ge", expected: 1}
         - extract_test: {jsonpath_mini: "results", test: "exists"}
-        - compare: {jsonpath_mini: "results.0.straatnaam", comparator: "eq", expected: "Nieuwe Achtergracht"}
+        - compare: {jsonpath_mini: "results.0.type", comparator: "eq", expected: "Openbare ruimte"}
+        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Nieuwe Achtergracht"}
 
 
-- test:
-    - name: "subjectsearch"
-    - url: "/atlas/search/kadastraalsubject/?q=Stephan%20preeker"
-    - validators:
-        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
-        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
-        - extract_test: {jsonpath_mini: "results", test: "exists"}
-        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
+  #- test:
+  #    - name: "subjectsearch"
+  #    - url: "/atlas/search/kadastraalsubject/?q=Stephan%20preeker"
+  #    - validators:
+  #        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
+  #        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
+  #        - extract_test: {jsonpath_mini: "results", test: "exists"}
+  #        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
 
 - test:
     - name: "nummeraanduidingsearch"
     - url: "/atlas/search/adres/?q=rozengracht%202"
     - validators:
         - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
-        - compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
+          #- compare: {jsonpath_mini: "count", comparator: "ge", expected: 3}
         - extract_test: {jsonpath_mini: "results", test: "exists"}
-        - compare: {jsonpath_mini: "results.0.straatnaam", comparator: "eq", expected: "Rozengracht"}
+        - compare: {jsonpath_mini: "results.0.straatnaam_keyword", comparator: "eq", expected: "Rozengracht"}
         - compare: {jsonpath_mini: "results.0.huisnummer", comparator: "eq", expected: 2}
 
-#
-#
-#
-#
-#

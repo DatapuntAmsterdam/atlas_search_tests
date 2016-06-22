@@ -106,8 +106,29 @@ s1,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,eq,eq,,,minimaal een
 s1,2,linnaeus,,IEF Berlage Amsterdam (Linnaeusstraat) B.V.,kad. subject,eq,eq,1,,nu alleen prefix matchen
 s2,1,Linnaeusstraat 6,,"""Vereniging Van Eigenaars Linnaeusstraat 61 Te Amsterdam""",kad. subject,eq,eq,1,,
 ,,,,,,,,,,
-o1,,,,,,,,,,
-o2,,,,,,,,,,
-o3,1,ASD15 S 00045,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,
-o3,2,ASD15 S 00045 G,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,
-o3,3,ASD15 S 00045 G 0000,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,
+o0,1,ASD15 S 00045,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,
+o0,2,ASD15 S 00045 G,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,
+o0,3,ASD15 S 00045 G 0000,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,
+,,,,,,,,,,
+o1,2,Aalsmeer B,,AMR03 B,kad. object,eq,eq,,,minimaal een
+o2,3,AMR03,,AMR03 B,kad. object,eq,eq,,,minimaal een
+o2,4,amr03,,AMR03 B,kad. object,eq,eq,,,minimaal een
+o2,5,AMR03 B,,AMR03 B,kad. object,eq,eq,,,minimaal een
+o2,6,AMR03 b,,AMR03 B,kad. object,eq,eq,,,minimaal een
+o3,7,AMR03 B 334,,AMR03 B 03347 G 0000,kad. object,eq,eq,,,
+o3,8,AMR03 B 03347,,AMR03 B 03347 G 0000,kad. object,eq,eq,,,
+o3,9,AMR03 B 3347,,AMR03 B 03347 G 0000,kad. object,eq,eq,,,
+o3,10,AMR03 B 03347 G 0000,,AMR03 B 03347 G 0000,kad. object,eq,eq,,,
+o3,11,AMR03 B 05054 A 0002,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,
+o3,12,AMR03 B 5054 A 2,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,
+o3,13,AMR03 B 05054 0002,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,
+o3,14,AMR03 B 5054 2,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,
+o3,15,Aalsmeer B 03347,,AMR03 B 03347 G 0000,kad. object,eq,eq,,,
+o3,16,Aalsmeer B 3347,,AMR03 B 03347 G 0000,kad. object,eq,eq,,,
+o3,17,Aalsmeer B 03347 G 0000,,AMR03 B 03347 G 0000,kad. object,eq,eq,,,
+o3,18,Aalsmeer B 05054 A 0002,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,
+o3,19,Aalsmeer B 5054 A 2,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,
+o3,20,Aalsmeer B 05054 0002,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,
+o3,21,Aalsmeer B 5054 2,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,
+o3,f22,AMR03 B 47,,AMR03 B 03347 G 0000,kad. object,not eq,not eq,,,
+o3,f23,Aalsmeer B 47,,AMR03 B 03347 G 0000,kad. object,not eq,not eq,,,

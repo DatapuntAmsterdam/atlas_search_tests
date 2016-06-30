@@ -10,24 +10,13 @@
         - 'nummer': {
                 type: 'random_text', min_length: 1,
                 max_lenght: 2, character_set: digits }
-
+        - 'blablabla': {
+                    type: 'random_text', min_length: 1,
+                max_lenght: 50, character_set: alphanumeric }
 
 - test:
     - name: "zoekadres"
     - url: "/atlas/search/adres/?q=silodam"
-
-
-- benchmark:
-    - name: "adresbench"
-    - generator_binds: {query: woordje, nummer: nummer}
-    - url: {template: "/atlas/search/adres/?q=$query%20$nummer"}
-    - warmup_runs: 0
-    - 'benchmark_runs': 10
-    - output_file: 'adres_bench.json'
-    - metrics:
-        - total_time: total
-        - total_time: mean
-
 
 - test:
     - name: "zoekadres"
@@ -38,15 +27,20 @@
         - compare: {jsonpath_mini: "results.0.type", comparator: "eq", expected: "Openbare ruimte"}
         - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Nieuwe Achtergracht"}
 
+- test:
+    - name: "typeaheadpostcode"
+    - url: "/atlas/typeahead/?q=1018WR"
+    - validators:
+        # - compare: {jsonpath_mini: "count", comparator: "ge", expected: 1}
+        - extract_test: {jsonpath_mini: "0.content", test: "exists"}
+        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Achtergracht"}
 
-  #- test:
-  #    - name: "subjectsearch"
-  #    - url: "/atlas/search/kadastraalsubject/?q=Stephan%20preeker"
-  #    - validators:
-  #        - compare: {header: "Content-Type", comparator: "contains", expected: "application/json"}
-  #        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
-  #        - extract_test: {jsonpath_mini: "results", test: "exists"}
-  #        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Stephan Jacob Preeker"}
+- test:
+    - name: "meetbout"
+    - url: "/atlas/typeahead/?q=10381"
+    - validators:
+        # - compare: {jsonpath_mini: "count", comparator: "ge", expected: 1}
+        - extract_test: {jsonpath_mini: "0.content", test: "exists"}
 
 - test:
     - name: "nummeraanduidingsearch"

@@ -63,6 +63,10 @@ CAT_LABEL_MAP = {
     'vbo': 'Adres',
     'meetbout': 'Meetbouten',
     'bouwblok': 'Bouwblok',
+    'stadsdeel': 'Stadsdeel',
+    'buurt': 'Buurt',
+    'buurtcombinatie': 'Buurtcombinatie',
+    'grootstedelijk': 'Grootstedelijk',
     'kad. subject': 'Kadastrale subjecten',
     'kad. object': 'Kadastrale objecten'
 

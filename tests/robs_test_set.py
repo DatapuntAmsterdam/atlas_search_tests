@@ -64,6 +64,7 @@ CAT_LABEL_MAP = {
     'meetbout': 'Meetbouten',
     'bouwblok': 'Bouwblok',
     'stadsdeel': 'Stadsdeel',
+    'gebied': 'Gebieden',
     'buurt': 'Buurt',
     'buurtcombinatie': 'Buurtcombinatie',
     'grootstedelijk': 'Grootstedelijk',

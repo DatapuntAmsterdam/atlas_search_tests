@@ -22,7 +22,7 @@ def load_tests():
 
     all_tests = []
 
-    with open('rob_tests.csv') as csvfile:
+    with open("Zoekfunctionaliteiten_tests.csv") as csvfile:
 
         testreader = csv.reader(csvfile)
 

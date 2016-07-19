@@ -34,10 +34,16 @@ def load_tests():
         # 5.Type (van resultaat),
         # 6.comparator,
         # 7.comparator,,,
-        # 8.Argumentatie (uit de specificatie)
+        # 8.KNOWN FAILURE
+        # 9.Positie resultaat (niet gebruikt)
+        # 11.Argumentatie (van de test)
 
         for i, row in enumerate(testreader):
             if i < 6:
+                # skip first 6 lines
+                continue
+
+            if row[0].startswith('#'):
                 continue
 
             test = dict(
@@ -47,7 +53,8 @@ def load_tests():
                 result=row[4],
                 type=row[5],
                 comparator=row[6],
-                doc=row[8],
+                known_failure=row[8],
+                doc=row[9],
             )
             all_tests.append(test)
 
@@ -126,6 +133,7 @@ def is_valid(response, test):
 def run_tests(_, all_tests):
 
     failed = 0
+    known_failures = 0
 
     for test in all_tests:
 
@@ -141,15 +149,19 @@ def run_tests(_, all_tests):
 
         response = requests.get(the_test_url, params=payload)
 
+        known_failure = test['known_failure']
         is_ok = is_valid(response, test)
 
-        if not is_ok:
+        if not is_ok and not known_failure:
             failed += 1
+        elif known_failure:
+            known_failures += 1
 
-        status = "%10s %-5s %-50s %-4s %-4s %-5s  %s" % (
+        status = "%10s %-5s %-50s %-4s %-4s %-4s %-5s  %s" % (
             test['name'], test['subname'],
             test['query'],
             'OK' if is_ok else 'FAIL',
+            'KNOWN' if known_failure else '',
             '' if is_ok else '!=' if 'not eq' in test['comparator'] else "==",
             '' if is_ok else test['type'],
             '' if is_ok else test['result']
@@ -160,7 +172,9 @@ def run_tests(_, all_tests):
         print('Failed: %s of %s' % (failed, len(all_tests)))
         os.sys.exit(9)
     else:
+        print('Known failures: %s of %s' % (known_failures, len(all_tests)))
         print('SUCCESS')
+        os.sys.exit(0)
 
 
 def main():

@@ -7,3 +7,4 @@ URL=https://api.datapunt.amsterdam.nl
 
 resttest.py $URL smoke_test.yml
 resttest.py $URL aanduidingen_test.yml
+resttest.py $URL typeahead.yml

@@ -1,23 +1,7 @@
 #!groovy
 
-def tryStep(String message, Closure block, Closure tearDown = null) {
-    try {
-        block();
-    }
-    catch (Throwable t) {
-        slackSend message: "${env.JOB_NAME}: ${message}: ${env.BUILD_URL}", channel: '#ci-channel', color: 'danger'
-
-        throw t;
-    }
-    finally {
-        if (tearDown) {
-            tearDown();
-        }
-    }
-}
-
 def warn(String message) {
-    slackSend message: "${env.JOB_NAME}: ${message} failure ${env.BUILD_URL}", channel: '#ci-channel', color: 'danger'
+    slackSend message: "${env.JOB_NAME}: ${message}: ${env.BUILD_URL}", channel: '#ci-channel', color: 'danger'
 }
 
 

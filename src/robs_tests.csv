@@ -5,16 +5,12 @@ Test op eerste 10.000 records,,,,,,,,,,,
 ,,Getypte input,,,,/atlas/typeahead/?q=,@url,,,,
 Name,Subname,q,(hulpkolom),Resultaat,Type (van resultaat),comparator,comparator,,,,Argumentatie (uit de specificatie)
 a1,1,Heijden,,Eerste Jan van der Heijdenstraat,weg,eq,eq,,1,,
-a1,2,Weter,,Derde Weteringdwarsstraat,weg,eq,eq,,1,,prefix matches bovenaan sorteren
-a1,3,Weter,,Weteringdwarsstraat,weg,eq,eq,,2,,
-a1,4,Weter,,Weteringdwarsstraat,weg,eq,eq,,3,,
-a1,5,Weter,,Eerste Weteringplantsoen,weg,eq,eq,,4,,
-a1,6,Weter,,Tweede Weteringplantsoen,weg,eq,eq,,5,,
-a1,7,Weter,,Nieuwe Weteringstraat,weg,eq,eq,,6,,
+a1,2,Weter,,Weteringlaan,weg,eq,eq,,1,,prefix matches bovenaan sorteren
+a1,3,Weter,,Weteringdwarsstraat,weg,eq,eq,,,,"maakt niet uit of eerste, tweede, of derde bovenaan staat"
 a1,8,STRUYCKENKD,,A.A.H. Struijckenkade,weg,eq,eq,,,,ook substring matching in naam 17/24-positie
 a1,9,A.A.H. Struijckenkade,,A.A.H. Struijckenkade,weg,eq,eq,,,,interpunctie negeren (in dit geval match met naam 17-posities)
 a1,10,A.A.H. Struijckenkade 2,,A.A.H. Struijckenkade 2,vbo,eq,eq,,,,
-a1,11,1e Glanshof 2,,1e Glanshof 2,vbo,eq,eq,1,,,1e glanshof word niet goed herkent als straat huisnummer
+a1,11,1e Glanshof 2,,1e Glanshof 2,vbo,eq,eq,1,,,known issue: 1e glanshof word niet goed herkend als straat met huisnummer
 ,,,,,,,,,,,
 a2,1f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat,weg,not eq,not eq,,,,"huisnummer ingevoerd, dus gebruiker wil vermoedelijk niet de openbare ruimte bekijken"
 a2,2,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 2,vbo,eq,eq,,1,,
@@ -91,20 +87,20 @@ p3-extra,15,1072TN 103A H,103A H,Eerste Jan van der Heijdenstraat 103A-H,vbo,eq,
 p3-extra,16,1074XV 50-HRA,50-HRA,Tweede Jan van der Heijdenstraat 50-HRA,vbo,eq,eq,,,,
 p3-extra,17,1074XV 50 HRA,50 HRA,Tweede Jan van der Heijdenstraat 50-HRA,vbo,eq,eq,,,,
 p3-extra,18,1074XV 50HRA,50HRA,Tweede Jan van der Heijdenstraat 50-HRA,vbo,eq,eq,,,,
-p3-extra,19,1074XV 50-2RA,50-2RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,
-p3-extra,20,1074XV 50 2RA,50 2RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,
-p3-extra,21,1074XV 50 2 RA,50 2 RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,
+p3-extra,19,1074XV 50-2RA,50-2RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,known issue (story 888)
+p3-extra,20,1074XV 50 2RA,50 2RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,known issue (story 888)
+p3-extra,21,1074XV 50 2 RA,50 2 RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,known issue (story 888)
 ,,,,,,,,,,,
 ,,,,,,,,,,,
 m1,f1,1038,,10381005,meetbout,not eq,not eq,,,,minder dan 5 cijfers is waarschijnlijk een postcode
 m1,2,10381,,10381005,meetbout,eq,eq,,1,,
 b1,1,AN30,,AN30,bouwblok,eq,eq,,1,,
-b1,2,AN3,,AN30,bouwblok,eq,eq,1,,,toch vanaf drie posities al matchen
+b1,2,AN3,,AN30,bouwblok,eq,eq,1,,,known issue: zou toch vanaf drie posities al moeten matchen
 b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,,
 ,,,,,,,,,,,
 s1,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,eq,eq,,,,minimaal een
 s1,2,linnaeus,, Linnaeusstraat,kad. subject,eq,eq,,1,,nu alleen prefix matchen
-s2,1,Linnaeusstraat 6,,Linnaeusstraat 6,kad. subject,eq,eq,1,1,,straat huisnummer match. autocomplete zoekt niet op 
+s2,1,Linnaeusstraat 6,,Linnaeusstraat 6,kad. subject,eq,eq,1,1,,"known issue: straat huisnummer match, autocomplete zoekt dan niet verder op kad subjn"
 ,,,,,,,,,,,
 o0,1,ASD15 S 00045,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,
 o0,2,ASD15 S 00045 G,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,

@@ -1,3 +1,2 @@
-
-testenv:
+tests:
   build: .

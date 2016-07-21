@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 """
 Run the tests from the rob xsl/csv
 """
@@ -22,7 +22,7 @@ def load_tests():
 
     all_tests = []
 
-    with open("Zoekfunctionaliteiten_tests.csv") as csvfile:
+    with open("robs_tests.csv") as csvfile:
 
         testreader = csv.reader(csvfile)
 

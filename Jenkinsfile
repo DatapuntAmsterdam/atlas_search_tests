@@ -36,37 +36,37 @@ node {
 
     stage "Test against Acceptance"
     try {
-        sh "docker-compose run tests ./pyresttest.sh https://api-acc.datapunt.amsterdam.nl"
+        sh "docker-compose run --rm tests ./pyresttest.sh https://api-acc.datapunt.amsterdam.nl"
     }
     catch (Throwable t) {
         warn "REST Tests against ACC failed"
-        currentBuild.result = 'FAILURE'
+        currentBuild.result = 'UNSTABLE'
     }
 
     try {
-        sh "docker-compose run tests ./robs_tests.sh https://api-acc.datapunt.amsterdam.nl"
+        sh "docker-compose run --rm tests ./robs_tests.py https://api-acc.datapunt.amsterdam.nl"
     }
     catch (Throwable t) {
         warn "Robs Tests against ACC failed"
-        currentBuild.result = 'FAILURE'
+        currentBuild.result = 'UNSTABLE'
     }
 
 
     stage "Test against Production"
     try {
-        sh "docker-compose run tests ./pyresttest.sh https://api.datapunt.amsterdam.nl"
+        sh "docker-compose run --rm tests ./pyresttest.sh https://api.datapunt.amsterdam.nl"
     }
     catch (Throwable t) {
         warn "REST Tests against PROD failed"
-        currentBuild.result = 'FAILURE'
+        currentBuild.result = 'UNSTABLE'
     }
 
     try {
-        sh "docker-compose run tests ./robs_tests.sh https://api.datapunt.amsterdam.nl"
+        sh "docker-compose run --rm tests ./robs_tests.py https://api.datapunt.amsterdam.nl"
     }
     catch (Throwable t) {
         warn "Robs Tests against PROD failed"
-        currentBuild.result = 'FAILURE'
+        currentBuild.result = 'UNSTABLE'
     }
 
 

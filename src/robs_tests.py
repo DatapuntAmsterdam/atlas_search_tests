@@ -3,67 +3,17 @@
 Run the tests from the rob xsl/csv
 """
 
-import requests
-
 import argparse
 import csv
 import os
+
+import requests
 
 parser = argparse.ArgumentParser(description='Test rob osv tests')
 
 parser.add_argument('url', help='URL to test')
 
 args = parser.parse_args()
-
-print('Testing on: %s' % args.url)
-
-
-def load_tests():
-
-    all_tests = []
-
-    with open("robs_tests.csv") as csvfile:
-
-        testreader = csv.reader(csvfile)
-
-        # 0.Name,
-        # 1.Subname,
-        # 2.q,
-        # 3.(hulpkolom),
-        # 4.Resultaat,
-        # 5.Type (van resultaat),
-        # 6.comparator,
-        # 7.comparator,,,
-        # 8.KNOWN FAILURE
-        # 9.Positie resultaat (niet gebruikt)
-        # 11.Argumentatie (van de test)
-
-        for i, row in enumerate(testreader):
-            if i < 6:
-                # skip first 6 lines
-                continue
-
-            if row[0].startswith('#'):
-                continue
-
-            test = dict(
-                name=row[0],
-                subname=row[1],
-                query=row[2],
-                result=row[4],
-                type=row[5],
-                comparator=row[6],
-                known_failure=row[8],
-                doc=row[9],
-            )
-            all_tests.append(test)
-
-    return all_tests
-
-
-def do_request(url):
-    print(url)
-
 
 CAT_LABEL_MAP = {
     'weg': 'Straatnamen',
@@ -81,90 +31,144 @@ CAT_LABEL_MAP = {
 }
 
 
+class TestCase(object):
+    name = None
+    sub_name = None
+    query = None
+
+    expected = None
+    expected_type = None
+    expected_position = None
+
+    comparator_typeahead = None
+    comparator_search = None
+    is_known_failure = False
+
+    documentation = None
+
+    def __init__(self, row):
+        """
+
+        :type row: [str]
+        """
+        self.name = row[0]
+        self.sub_name = row[1]
+        self.query = row[2]
+        self.expected = row[4]
+        self.expected_type = CAT_LABEL_MAP[row[5]]
+        self.comparator_typeahead = row[6]
+        self.comparator_search = row[7]
+        self.known_failure = (row[8] == "1")
+        self.expected_position = row[9]
+        self.documentation = row[11]
+
+        self._check_comparator(self.comparator_search)
+        self._check_comparator(self.comparator_typeahead)
+
+    def _check_comparator(self, comparator):
+        if comparator not in ['eq', 'not eq']:
+            raise SyntaxError("Unknown comparator: <%s>" % (comparator,))
+
+    def is_valid(self):
+        return bool(self.query)
+
+    def allows_empty_result_typeahead(self):
+        return self.comparator_typeahead == 'not eq'
+
+    def __str__(self):
+        return "%10s %-5s" % (self.name, self.sub_name)
+
+
+def load_tests():
+    all_tests = []
+
+    with open("robs_tests.csv") as csvfile:
+        reader = csv.reader(csvfile)
+
+        for i, row in enumerate(reader):
+            if i < 6:
+                # skip first 6 lines
+                continue
+
+            if not row[0] or row[0].startswith('#'):
+                continue
+
+            test = TestCase(row)
+            all_tests.append(test)
+
+    return all_tests
+
+
 def is_valid(response, test):
     """
     """
-    success = True
-    fail = False
-
     if response.status_code != 200:
         return False
 
     data = response.json()
 
-    # if we do not want to macht and we do not have
+    # if we do not want to match and we do not have
     # data the test was a success
     if not data:
-        if 'not eq' in test['comparator']:
-            return True
-        return False
+        return test.allows_empty_result_typeahead()
 
     # find the result category we want to match
-    wanted_data = test['result']
-    wanted_label = CAT_LABEL_MAP[test['type']]
     search_result = None
-    should_not_find = 'not eq' in test['comparator']
-
-    result_in_data = False
+    should_not_find = 'not eq' in test.comparator_typeahead
 
     for category in data:
-        if category['label'] == wanted_label:
-            search_result = category
+        if category['label'] == test.expected_type:
+            search_result = category['content']
             continue
 
-    # print(category['label'], wanted_label)
+    if not search_result:
+        return should_not_find
 
-    if search_result:
-        result_in_data = wanted_data in str(search_result)
+    display_results = [r['_display'] for r in search_result]
 
-    if should_not_find:
-        # we did not even find the category
-        return success
+    result_in_data = test.expected in "|".join(display_results)
 
     if should_not_find:
-        if not result_in_data:
-            return fail
+        return not result_in_data
+    else:
+        return result_in_data
 
-    # did we find what we are looking for?
-    if result_in_data:
-        return True
+def run_tests(all_tests):
+    """
 
-
-def run_tests(_, all_tests):
-
+    :type all_tests: [TestCase]
+    """
     failed = 0
     known_failures = 0
 
     for test in all_tests:
 
-        if not test['query']:
-            print
-            continue
+        if not test.is_valid():
+            raise SyntaxError("Could not execute test %s" % (test,))
 
         payload = {
-            'q': test['query'],
+            'q': test.query,
             'format': 'json'
         }
         the_test_url = '{}/atlas/typeahead/'.format(args.url)
 
         response = requests.get(the_test_url, params=payload)
 
-        known_failure = test['known_failure']
         is_ok = is_valid(response, test)
 
-        if not is_ok and not known_failure:
+        if not is_ok and not test.known_failure:
             failed += 1
-        elif known_failure:
+        elif test.known_failure:
             known_failures += 1
 
-        status = "%10s %-5s %-50s %-4s %-4s %-4s %-5s  %s" % (
-            test['name'], test['subname'],
-            test['query'],
+        status = "%s %-50s %-4s %-4s %-4s %-5s  %s" % (
+            test,
+            test.query,
             'OK' if is_ok else 'FAIL',
-            'KNOWN' if known_failure else '',
-            '' if is_ok else '!=' if 'not eq' in test['comparator'] else "==",
-            '' if is_ok else test['type'],
-            '' if is_ok else test['result']
+            'KNOWN' if test.known_failure else '',
+            '' if is_ok else '!=' if 'not eq' in test.comparator_typeahead else "==",
+            '' if is_ok else test.expected_type,
+            '' if is_ok else test.expected
         )
         print(status)
 
@@ -179,13 +183,7 @@ def run_tests(_, all_tests):
 
 def main():
     all_tests = load_tests()
-
-    test_urls = [
-        'http://127.0.0.1:8000',
-    ]
-
-    for url in test_urls:
-        run_tests(url, all_tests)
+    run_tests(all_tests)
 
 
 if __name__ == "__main__":

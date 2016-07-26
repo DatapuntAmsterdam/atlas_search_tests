@@ -18,6 +18,8 @@ args = parser.parse_args()
 CAT_LABEL_MAP = {
     'weg': 'Straatnamen',
     'vbo': 'Adres',
+    'ligplaats': 'Adres',
+    'standplaats': 'Adres',
     'meetbout': 'Meetbouten',
     'bouwblok': 'Bouwblok',
     'stadsdeel': 'Stadsdeel',

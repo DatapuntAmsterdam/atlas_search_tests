@@ -15,7 +15,7 @@ a1,11,1e Glanshof 2,,1e Glanshof 2,vbo,eq,eq,1,,,known issue: 1e glanshof word n
 a2,1f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat,weg,not eq,not eq,,,,"huisnummer ingevoerd, dus gebruiker wil vermoedelijk niet de openbare ruimte bekijken"
 a2,2,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 2,vbo,eq,eq,,1,,
 a2,3,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 20-3,vbo,eq,eq,,2,,
-a2,4,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 22-1A,vbo,eq,eq,1,6,,zit niet in eerste 8
+a2,4,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 22-1A,vbo,eq,eq,,6,,zit niet in eerste 8
 a2,5f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 16-2,vbo,not eq,not eq,,,,
 a2,6f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 32-1,vbo,not eq,not eq,,,,
 a2,7,Tweede Jan van der Heijdenstraat 19 H,,Tweede Jan van der Heijdenstraat 19-H,vbo,eq,eq,,,,"interpunctie negeren in huisnummers e.d. (Huisnummer, Huisletter, Huisnummertoevoeging)"
@@ -51,7 +51,7 @@ a2-extra,21,Tweede Jan van der Heijdenstraat 50 2 RA,50 2 RA,Tweede Jan van der 
 ,,,,,,,,,,,
 p1,1,1072,,Eerste Jan van der Heijdenstraat,weg,eq,eq,1,1,,verschil 10k - hele dataset
 p1,2f,1072,,Carolina MacGillavrylaan 1072,vbo,not eq,not eq,,,,
-p1,3,1072,,Eerste Jacob van Campenstraat,weg,eq,eq,1,,,verschil 10k - hele dataset
+p1,3,1072,,Eerste Jacob van Campenstraat,weg,eq,eq,,,,
 p2,1,1072 TT,,Eerste Jan van der Heijdenstraat,weg,eq,eq,,,,
 p2,2f,1072 TT,,Eerste Jan van der Heijdenstraat 2,vbo,not eq,not eq,,1,,
 p2,3f,1072 TT,,Eerste Jan van der Heijdenstraat 22-2A,vbo,not eq,not eq,,6,,
@@ -61,7 +61,7 @@ p2,f6,1072TT,,Eerste Jan van der Heijdenstraat 22-2A,vbo,not eq,not eq,,6,,
 p3,f1,1072 TT 2,,Eerste Jan van der Heijdenstraat,weg,not eq,not eq,,,,
 p3,2,1072 TT 2,,Eerste Jan van der Heijdenstraat 2,vbo,eq,eq,,1,,
 p3,3,1072 TT 2,,Eerste Jan van der Heijdenstraat 20-3,vbo,eq,eq,,2,,
-p3,4,1072 TT 2,,Eerste Jan van der Heijdenstraat 22-1A,vbo,eq,eq,1,6,,valt uit eerste 8
+p3,4,1072 TT 2,,Eerste Jan van der Heijdenstraat 22-1A,vbo,eq,eq,,6,,valt uit eerste 8
 p3,f5,1072 TT 2,,Eerste Jan van der Heijdenstraat 16-2,vbo,not eq,not eq,,,,
 p3,f6,1072 TT 2,,Eerste Jan van der Heijdenstraat 32-1,vbo,not eq,not eq,,,,
 ,,,,,,,,,,,
@@ -87,13 +87,13 @@ p3-extra,15,1072TN 103A H,103A H,Eerste Jan van der Heijdenstraat 103A-H,vbo,eq,
 p3-extra,16,1074XV 50-HRA,50-HRA,Tweede Jan van der Heijdenstraat 50-HRA,vbo,eq,eq,,,,
 p3-extra,17,1074XV 50 HRA,50 HRA,Tweede Jan van der Heijdenstraat 50-HRA,vbo,eq,eq,,,,
 p3-extra,18,1074XV 50HRA,50HRA,Tweede Jan van der Heijdenstraat 50-HRA,vbo,eq,eq,,,,
-p3-extra,19,1074XV 50-2RA,50-2RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,known issue (story 888)
-p3-extra,20,1074XV 50 2RA,50 2RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,known issue (story 888)
-p3-extra,21,1074XV 50 2 RA,50 2 RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,1,,,known issue (story 888)
+p3-extra,19,1074XV 50-2RA,50-2RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,,,,known issue (story 888)
+p3-extra,20,1074XV 50 2RA,50 2RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,,,,known issue (story 888)
+p3-extra,21,1074XV 50 2 RA,50 2 RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,eq,eq,,,,known issue (story 888)
 ,,,,,,,,,,,
 ,,,,,,,,,,,
-m1,f1,1038,,10381005,meetbout,not eq,not eq,,,,minder dan 5 cijfers is waarschijnlijk een postcode
-m1,2,10381,,10381005,meetbout,eq,eq,,1,,
+m1,f1,1038,,10381004,meetbout,not eq,not eq,,,,minder dan 5 cijfers is waarschijnlijk een postcode
+m1,2,10381,,10381004,meetbout,eq,eq,,1,,
 b1,1,AN30,,AN30,bouwblok,eq,eq,,1,,
 b1,2,AN3,,AN30,bouwblok,eq,eq,1,,,known issue: zou toch vanaf drie posities al moeten matchen
 b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,,

@@ -19,6 +19,10 @@ Het project bevat twee soorten tests:
 ## Runtests
 
     resttest.py https://api-acc.datapunt.amsterdam.nl smoke_test.yml
+    
+## Specific test for atlas client created by rob m and rob k.
+
+    python robs_tests.py https://api-acc.datapunt.amsterdam.nl
 
 
 ## Docker environment

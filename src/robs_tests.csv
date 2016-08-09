@@ -96,11 +96,12 @@ m1,f1,1038,,10381004,meetbout,not eq,not eq,,,,minder dan 5 cijfers is waarschij
 m1,2,10381,,10381004,meetbout,eq,eq,,1,,
 b1,1,AN30,,AN30,bouwblok,eq,eq,,1,,
 b1,2,AN3,,AN30,bouwblok,eq,eq,1,,,known issue: zou toch vanaf drie posities al moeten matchen
+b1,3,an30,,AN30,bouwblok,eq,eq,,,,
 b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,,
 ,,,,,,,,,,,
 s1,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,eq,eq,,,,minimaal een
 s1,2,linnaeus,, Linnaeusstraat,kad. subject,eq,eq,,1,,nu alleen prefix matchen
-s2,1,Linnaeusstraat 6,,Linnaeusstraat 6,kad. subject,eq,eq,1,1,,"known issue: straat huisnummer match, autocomplete zoekt dan niet verder op kad subjn"
+s2,1,Linnaeusstraat 31,,Linnaeusstraat 31,kad. subject,eq,eq,1,1,,"known issue: straat huisnummer match, autocomplete zoekt dan niet verder op kad subjn (search doet het wel)"
 ,,,,,,,,,,,
 o0,1,ASD15 S 00045,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,
 o0,2,ASD15 S 00045 G,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,
@@ -151,3 +152,7 @@ tg-894,1,sixhavenweg 5,,Sixhavenweg 5,ligplaats,eq,eq,,,,
 tg-894,2,dilbeekpad 3,,Dilbeekpad 3,standplaats,eq,eq,,,,
 tg-894,3,sixhavenweg 1,,Sixhavenweg 1,vbo,eq,eq,,,,
 tg-894,4,sixhavenweg 1,,Sixhavenweg 11,ligplaats,eq,eq,,,,
+,,,,,,,,,,,
+known,1,henk h,,Henk Henriëtstraat,weg,eq,eq,1,,,Wordt gezien als kadastraal object
+known,2a,buurt,,Buurt 2 (buurt),gebied,eq,eq,,,,
+known,2b,buurt 2,,Buurt 2 (buurt),gebied,eq,eq,1,,,?

@@ -4,8 +4,6 @@ def warn(String message) {
     slackSend message: "${env.JOB_NAME}: ${message}: ${env.BUILD_URL}", channel: '#ci-channel', color: 'danger'
 }
 
-properties pipelineTriggers([cron('* * * * * ')])
-
 
 node {
     stage "Checkout"

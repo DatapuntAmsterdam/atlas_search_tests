@@ -4,7 +4,7 @@ def warn(String message) {
     slackSend message: "${env.JOB_NAME}: ${message}: ${env.BUILD_URL}", channel: '#ci-channel', color: 'danger'
 }
 
-properties [[$class: 'ThrottleJobProperty',
+properties ([$class: 'ThrottleJobProperty',
  categories: [],
  limitOneJobWithMatchingParams: false,
  maxConcurrentPerNode: 0,
@@ -12,7 +12,7 @@ properties [[$class: 'ThrottleJobProperty',
  paramsToUseForLimit: '',
  throttleEnabled: false,
  throttleOption: 'project'],
-pipelineTriggers([cron('* * * * * ')])]
+pipelineTriggers([cron('* * * * * ')]))
 
 
 node {

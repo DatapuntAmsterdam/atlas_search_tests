@@ -5,13 +5,6 @@ def warn(String message) {
 }
 
 properties properties ([$class: 'ThrottleJobProperty',
- categories: [],
- limitOneJobWithMatchingParams: false,
- maxConcurrentPerNode: 0,
- maxConcurrentTotal: 0,
- paramsToUseForLimit: '',
- throttleEnabled: false,
- throttleOption: 'project'],
 pipelineTriggers([cron('* * * * * ')]))
 
 

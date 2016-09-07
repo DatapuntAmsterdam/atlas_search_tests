@@ -5,6 +5,7 @@ def warn(String message) {
 }
 
 properties properties ([$class: 'ThrottleJobProperty',
+ throttleOption: 'project'],
 pipelineTriggers([cron('* * * * * ')]))
 
 

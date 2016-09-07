@@ -12,7 +12,7 @@ properties([[$class: 'ThrottleJobProperty',
  paramsToUseForLimit: '',
  throttleEnabled: false,
  throttleOption: 'project'],
-pipelineTriggers([cron('* * * * * ')])])
+pipelineTriggers([cron('H H(1-6) * * *')])])
 
 node {
     stage "Checkout"

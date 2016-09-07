@@ -5,7 +5,7 @@ def warn(String message) {
 }
 
 properties([[$class: 'ThrottleJobProperty'],
-pipelineTriggers([cron('H H(1-6) * * *')])])
+pipelineTriggers([cron('* * * * *')])])
 
 node {
     stage "Checkout"

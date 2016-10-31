@@ -135,7 +135,7 @@ g1,2,centrum,,Centrum (stadsdeel),gebied,eq,eq,,2,,
 g1,3,bijlmer centrum,,"Bijlmer Centrum (D,F,H) (buurtcombinatie)",gebied,eq,eq,,3,,
 g1,4,centrum,,Centrumeiland (buurt),gebied,eq,eq,,4,,
 g1,5,medisch centrum,,Medisch Centrum Slotervaart (buurt),gebied,eq,eq,,5,,
-g1,6,centrum west,,Centrum-West (gebiedsgerichtwerken),gebied,eq,eq,,6,,
+g1,6,centrum west,,Centrum-West (gebiedsgericht),gebied,eq,eq,,6,,
 g1,7,kern,,Kernzone (unesco),gebied,eq,eq,,,,
 ,,,,,,,,,,,
 kots,1,AMR03 B 3,,AMR03 B 03018 G 0000,kad. object,eq,eq,,,,https://dokuwiki.datapunt.amsterdam.nl/doku.php?id=start:uispecs:autokot
@@ -156,3 +156,6 @@ tg-894,4,sixhavenweg 1,,Sixhavenweg 11,ligplaats,eq,eq,,,,
 known,1,henk h,,Henk Henriëtstraat,weg,eq,eq,1,,,Wordt gezien als kadastraal object
 known,2a,buurt,,Buurt 2 (buurt),gebied,eq,eq,,,,
 known,2b,buurt 2,,Buurt 2 (buurt),gebied,eq,eq,1,,,?
+known,3a,Plein 40,,Plein '40-'45 4,vbo,eq,eq,1,,,
+known,3b,Plein 40 45,,Plein '40-'45 4,vbo,eq,eq,1,,,
+known,4,zijkanaal h,,Zijkanaal H-weg 2,vbo,eq,eq,1,,,

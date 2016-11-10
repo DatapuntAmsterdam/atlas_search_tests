@@ -154,7 +154,7 @@ tg-894,3,sixhavenweg 1,,Sixhavenweg 1,vbo,eq,eq,,,,
 tg-894,4,sixhavenweg 1,,Sixhavenweg 11,ligplaats,eq,eq,,,,
 ,,,,,,,,,,,
 known,1,henk h,,Henk Henriëtstraat,weg,eq,eq,1,,,Wordt gezien als kadastraal object
-known,2a,buurt,,Buurt 2 (buurt),gebied,eq,eq,,,,
+known,2a,buurt,,Buurt 2 (buurt),gebied,eq,eq,1,,,
 known,2b,buurt 2,,Buurt 2 (buurt),gebied,eq,eq,1,,,?
 known,3a,Plein 40,,Plein '40-'45 4,vbo,eq,eq,1,,,
 known,3b,Plein 40 45,,Plein '40-'45 4,vbo,eq,eq,1,,,

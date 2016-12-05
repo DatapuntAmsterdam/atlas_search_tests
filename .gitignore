@@ -1,9 +1,3 @@
+.idea/
 *_bench.json
-
-.idea/compiler.xml
-.idea/copyright/
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/workspace.xml
 atlas_search_tests.iml

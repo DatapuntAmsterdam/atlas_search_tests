@@ -1,2 +1,6 @@
-pyresttest
-requests
+PyYAML==3.12
+future==0.16.0
+jsonschema==2.5.1
+pycurl==7.43.0
+pyresttest==1.7.1
+requests==2.12.3

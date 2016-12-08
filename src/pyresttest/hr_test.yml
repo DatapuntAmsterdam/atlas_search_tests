@@ -1,0 +1,80 @@
+
+---
+- config:
+    - testset: "HR search app tests"
+    - variable_binds: {'headername': 'Content-Type', 'headervalue': 'application/json'}
+    - generators:
+        - 'woordje': {
+                type: 'random_text', min_length: 2,
+                max_lenght: 4, character_set: alphanumeric }
+        - 'nummer': {
+                type: 'random_text', min_length: 1,
+                max_lenght: 2, character_set: digits }
+        - 'blablabla': {
+                    type: 'random_text', min_length: 1,
+                max_lenght: 50, character_set: alphanumeric }
+
+- test:
+    - name: "zoekpagina_maatschappelijke_activiteit"
+    - url: "/handelsregister/search/maatschappelijkeactiviteit/"
+
+- test:
+    - name: "zoekpagina_vestiging"
+    - url: "/handelsregister/search/vestiging/"
+
+- test:
+    - name: "zoekpagina_HR"
+    - url: "/handelsregister/search/"
+
+- test:
+    - name: "zoek_maatschappelijke_activiteit"
+    - url: "/handelsregister/search/maatschappelijkeactiviteit/?q=Yottabyte"
+    - validators:
+        # Zorgt dat er geen extra velden worden geaccepteerd:
+        - json_schema: {schema: {file: 'hr_search_ma_schema.json'}}
+
+        - extract_test: {jsonpath_mini: "count", test: "exists"}
+        - extract_test: {jsonpath_mini: "results", test: "exists"}
+        - extract_test: {jsonpath_mini: "_links", test: "exists"}
+
+        - compare: {jsonpath_mini: "_links.self.href", comparator: "regex", expected: ".*/handelsregister/search/maatschappelijkeactiviteit/\\?q=Yottabyte.*"}
+
+        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
+
+        - compare: {jsonpath_mini: "results.0._links.self.href", comparator: "regex", expected: ".*/handelsregister/maatschappelijkeactiviteit/61130354/$"}
+        - compare: {jsonpath_mini: "results.0.type", comparator: "eq", expected: "maatschappelijke_activiteit"}
+        - compare: {jsonpath_mini: "results.0.dataset", comparator: "eq", expected: "handelsregister"}
+        - compare: {jsonpath_mini: "results.0._display", comparator: "eq", expected: "Yottabyte Solutions"}
+        - compare: {jsonpath_mini: "results.0.handelsnamen.0.naam", comparator: "eq", expected: "Yottabyte Solutions"}
+        - compare: {jsonpath_mini: "results.0.kvk_nummer", comparator: "eq", expected: "61130354"}
+        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Yottabyte Solutions"}
+
+- test:
+    - name: "zoek_vestiging"
+    - url: "/handelsregister/search/vestiging/?q=Yottabyte"
+    - validators:
+        # Zorgt dat er geen extra velden worden geaccepteerd:
+        - json_schema: {schema: {file: 'hr_search_vestiging_schema.json'}}
+
+        - extract_test: {jsonpath_mini: "count", test: "exists"}
+        - extract_test: {jsonpath_mini: "results", test: "exists"}
+        - extract_test: {jsonpath_mini: "_links", test: "exists"}
+
+        - compare: {jsonpath_mini: "_links.self.href", comparator: "regex", expected: ".*/handelsregister/search/vestiging/\\?q=Yottabyte.*"}
+
+        - compare: {jsonpath_mini: "count", comparator: "eq", expected: 1}
+
+        - compare: {jsonpath_mini: "results.0._links.self.href", comparator: "regex", expected: ".*/handelsregister/vestiging/000030256488/"}
+        - compare: {jsonpath_mini: "results.0.type", comparator: "eq", expected: "vestiging"}
+        - compare: {jsonpath_mini: "results.0.dataset", comparator: "eq", expected: "handelsregister"}
+        - compare: {jsonpath_mini: "results.0._display", comparator: "eq", expected: "Yottabyte Solutions - Van Spilbergenstraat 95-1"}
+        - compare: {jsonpath_mini: "results.0.handelsnamen.0.naam", comparator: "eq", expected: "Yottabyte Solutions"}
+        - compare: {jsonpath_mini: "results.0.vestigingsnummer", comparator: "eq", expected: "000030256488"}
+        - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Yottabyte Solutions"}
+        - compare: {jsonpath_mini: "results.0.hoofdvestiging", comparator: "eq", expected: true}
+
+        - compare: {jsonpath_mini: "results.0.postadres", comparator: "eq", expected: "Van Spilbergenstraat 95 1 1057RB Amsterdam"}
+        - compare: {jsonpath_mini: "results.0.bezoekadres", comparator: "eq", expected: "Van Spilbergenstraat 95 1 1057RB Amsterdam"}
+        - compare: {jsonpath_mini: "results.0.sbi.0.code", comparator: "eq", expected: "6201"}
+        - compare: {jsonpath_mini: "results.0.sbi.1.code", comparator: "eq", expected: "6202"}
+        - compare: {jsonpath_mini: "results.0.sbi.2.code", comparator: "eq", expected: "6209"}

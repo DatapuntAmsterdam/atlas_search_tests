@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string",
+              "id": "href"
+            }
+          },
+          "id": "self",
+          "required": [
+            "href"
+          ]
+        },
+        "next": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "null",
+              "id": "href"
+            }
+          },
+          "id": "next",
+          "required": [
+            "href"
+          ]
+        },
+        "prev": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "null",
+              "id": "href"
+            }
+          },
+          "id": "prev",
+          "required": [
+            "href"
+          ]
+        }
+      },
+      "id": "_links",
+      "required": [
+        "self",
+        "next",
+        "prev"
+      ]
+    },
+    "count": {
+      "type": "integer",
+      "id": "count"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "id": "href"
+                  }
+                },
+                "id": "self",
+                "required": [
+                  "href"
+                ]
+              }
+            },
+            "id": "_links",
+            "required": [
+              "self"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "id": "type"
+          },
+          "dataset": {
+            "type": "string",
+            "id": "dataset"
+          },
+          "_display": {
+            "type": "string",
+            "id": "_display"
+          },
+          "naam": {
+            "type": "string",
+            "id": "naam"
+          },
+          "kvk_nummer": {
+            "type": "string",
+            "id": "kvk_nummer"
+          },
+          "handelsnamen": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "naam": {
+                  "type": "string",
+                  "id": "naam"
+                }
+              },
+              "id": "2",
+              "required": [
+                "naam"
+              ]
+            },
+            "id": "handelsnamen"
+          }
+        },
+        "id": "0",
+        "required": [
+          "_links",
+          "type",
+          "dataset",
+          "_display",
+          "naam",
+          "kvk_nummer",
+          "handelsnamen"
+        ]
+      },
+      "id": "results"
+    }
+  },
+  "id": "/",
+  "required": [
+    "_links",
+    "count",
+    "results"
+  ]
+}

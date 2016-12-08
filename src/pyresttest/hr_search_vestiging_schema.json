@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string",
+              "id": "href"
+            }
+          },
+          "id": "self",
+          "required": [
+            "href"
+          ]
+        },
+        "next": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "null",
+              "id": "href"
+            }
+          },
+          "id": "next",
+          "required": [
+            "href"
+          ]
+        },
+        "prev": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "null",
+              "id": "href"
+            }
+          },
+          "id": "prev",
+          "required": [
+            "href"
+          ]
+        }
+      },
+      "id": "_links",
+      "required": [
+        "self",
+        "next",
+        "prev"
+      ]
+    },
+    "count": {
+      "type": "integer",
+      "id": "count"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "id": "href"
+                  }
+                },
+                "id": "self",
+                "required": [
+                  "href"
+                ]
+              }
+            },
+            "id": "_links",
+            "required": [
+              "self"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "id": "type"
+          },
+          "dataset": {
+            "type": "string",
+            "id": "dataset"
+          },
+          "naam": {
+            "type": "string",
+            "id": "naam"
+          },
+          "hoofdvestiging": {
+            "type": "boolean",
+            "id": "hoofdvestiging"
+          },
+          "_display": {
+            "type": "string",
+            "id": "_display"
+          },
+          "handelsnamen": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "naam": {
+                  "type": "string",
+                  "id": "naam"
+                }
+              },
+              "id": "0",
+              "required": [
+                "naam"
+              ]
+            },
+            "id": "handelsnamen"
+          },
+          "vestigingsnummer": {
+            "type": "string",
+            "id": "vestigingsnummer"
+          },
+          "bezoekadres": {
+            "type": "string",
+            "id": "bezoekadres"
+          },
+          "sbi": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "id": "code"
+                },
+                "omschrijving": {
+                  "type": "string",
+                  "id": "omschrijving"
+                }
+              },
+              "id": "2",
+              "required": [
+                "code",
+                "omschrijving"
+              ]
+            },
+            "id": "sbi"
+          },
+          "centroid": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "id": "centroid"
+          },
+          "postadres": {
+            "type": "string",
+            "id": "postadres"
+          }
+        },
+        "id": "0",
+        "required": [
+          "_links",
+          "type",
+          "dataset",
+          "naam",
+          "hoofdvestiging",
+          "_display",
+          "handelsnamen",
+          "vestigingsnummer",
+          "bezoekadres",
+          "sbi",
+          "centroid",
+          "postadres"
+        ]
+      },
+      "id": "results"
+    }
+  },
+  "id": "/",
+  "required": [
+    "_links",
+    "count",
+    "results"
+  ]
+}

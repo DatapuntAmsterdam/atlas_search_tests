@@ -13,14 +13,14 @@
 
 - test:
     - name: "typeaheadtest"
-    - url: "/atlas/typeahead/?q=rozengracht%202"
+    - url: "/typeahead/?q=rozengracht%202"
     - validators:
         - compare: {raw_body:, comparator: "contains", expected: "Rozengracht 2A"}
 
 
   #- test:
   #    - name: "typeaheadpostcode"
-  #    - url: "/atlas/typeahead/?q=1013"
+  #    - url: "/typeahead/?q=1013"
   #    - validators:
   #        - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Adrichemstraat"}
 
@@ -28,75 +28,75 @@
 
 - test:
     - name: "Typeahead Partial street name"
-    - url: "/atlas/typeahead/?q=linnae"
+    - url: "/typeahead/?q=linnae"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "contains", expected: "Linnae"}
           #- compare: {raw_body:, comparator: "regex", expected: "(?!Volkstuinenpark Linnaeus)"}
 
 - test:
     - name: "Typeahead Partial with metro"
-    - url: "/atlas/typeahead/?q=weesperp"
+    - url: "/typeahead/?q=weesperp"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Weesperplein"}
         - compare: {jsonpath_mini: "0.content.1._display", comparator: "eq", expected: "Metrostation Weesperplein"}
 
 - test:
     - name: "Typeahead Partial Prefix on Later Words"
-    - url: "/atlas/typeahead/?q=oyeweg"
+    - url: "/typeahead/?q=oyeweg"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Baron Schimmelpenninck van der Oyeweg"}
 
 - test:
     - name: "Typeahead full address with ext. dash"
-    - url: "/atlas/typeahead/?q=Nieuwe%20Leliestraat%20190A-H"
+    - url: "/typeahead/?q=Nieuwe%20Leliestraat%20190A-H"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Leliestraat 190A-H"}
 
 - test:
     - name: "Typeahead full address with ext. no space"
-    - url: "/atlas/typeahead/?q=Nieuwe%20Leliestraat%20190AH"
+    - url: "/typeahead/?q=Nieuwe%20Leliestraat%20190AH"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Leliestraat 190A-H"}
 
 - test:
     - name: "Typeahead full address with ext. space"
-    - url: "/atlas/typeahead/?q=Nieuwe%20Leliestraat%20190A%20H"
+    - url: "/typeahead/?q=Nieuwe%20Leliestraat%20190A%20H"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Leliestraat 190A-H"}
 
 - test:
     - name: "Typeahead full address with ext. lower case"
-    - url: "/atlas/typeahead/?q=nieuwe%20leliestraat%20190A-H"
+    - url: "/typeahead/?q=nieuwe%20leliestraat%20190A-H"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Nieuwe Leliestraat 190A-H"}
 
 - test:
     - name: "Typeahead postcode search"
-    - url: "/atlas/typeahead/?q=1092"
+    - url: "/typeahead/?q=1092"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "'s-Gravesandestraat"}
 
 - test:
     - name: "Typeahead full postcode with space"
-    - url: "/atlas/typeahead/?q=1092%20CK"
+    - url: "/typeahead/?q=1092%20CK"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat"}
 
 - test:
     - name: "Typeahead full postcode no space"
-    - url: "/atlas/typeahead/?q=1092CK"
+    - url: "/typeahead/?q=1092CK"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat"}
 
 
 - test:
     - name: "Typeahead full postcode no space lowercase"
-    - url: "/atlas/typeahead/?q=1092ck"
+    - url: "/typeahead/?q=1092ck"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "Linnaeusstraat"}
 
 - test:
     - name: "Typeahead bouwblok"
-    - url: "/atlas/typeahead/?q=AN30"
+    - url: "/typeahead/?q=AN30"
     - validators:
         - compare: {raw_body:, comparator: "contains", expected: "AN30"}

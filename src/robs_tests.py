@@ -152,7 +152,7 @@ def run_tests(all_tests):
             'q': test.query,
             'format': 'json'
         }
-        the_test_url = '{}/atlas/typeahead/'.format(args.url)
+        the_test_url = '{}/typeahead/'.format(args.url)
 
         response = requests.get(the_test_url, params=payload)
 

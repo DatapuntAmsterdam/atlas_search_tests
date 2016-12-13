@@ -6,7 +6,7 @@ Test op eerste 10.000 records,,,,,,,,,,,
 Name,Subname,q,(hulpkolom),Resultaat,Type (van resultaat),comparator,comparator,,,,Argumentatie (uit de specificatie)
 a1,1,Heijden,,Eerste Jan van der Heijdenstraat,weg,eq,eq,,1,,
 a1,2,Weter,,Weteringlaan,weg,eq,eq,,1,,prefix matches bovenaan sorteren
-a1,3,Weter,,Weteringdwarsstraat,weg,eq,eq,,,,"maakt niet uit of eerste, tweede, of derde bovenaan staat"
+a1,3,Weter,,Weteringdwarsstraat,weg,eq,eq,1,,,Aantallen staan nu op 3
 a1,8,STRUYCKENKD,,A.A.H. Struijckenkade,weg,eq,eq,,,,ook substring matching in naam 17/24-positie
 a1,9,A.A.H. Struijckenkade,,A.A.H. Struijckenkade,weg,eq,eq,,,,interpunctie negeren (in dit geval match met naam 17-posities)
 a1,10,A.A.H. Struijckenkade 2,,A.A.H. Struijckenkade 2,vbo,eq,eq,,,,
@@ -14,8 +14,8 @@ a1,11,1e Glanshof 2,,1e Glanshof 2,vbo,eq,eq,1,,,known issue: 1e glanshof word n
 ,,,,,,,,,,,
 a2,1f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat,weg,not eq,not eq,,,,"huisnummer ingevoerd, dus gebruiker wil vermoedelijk niet de openbare ruimte bekijken"
 a2,2,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 2,vbo,eq,eq,,1,,
-a2,3,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 20-3,vbo,eq,eq,,2,,
-a2,4,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 22-1A,vbo,eq,eq,,6,,zit niet in eerste 8
+a2,3,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 2A,vbo,eq,eq,,2,,
+a2,4,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 20-1,vbo,eq,eq,,6,,zit niet in eerste 8
 a2,5f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 16-2,vbo,not eq,not eq,,,,
 a2,6f,Eerste Jan van der Heijdenstraat 2,,Eerste Jan van der Heijdenstraat 32-1,vbo,not eq,not eq,,,,
 a2,7,Tweede Jan van der Heijdenstraat 19 H,,Tweede Jan van der Heijdenstraat 19-H,vbo,eq,eq,,,,"interpunctie negeren in huisnummers e.d. (Huisnummer, Huisletter, Huisnummertoevoeging)"
@@ -51,7 +51,7 @@ a2-extra,21,Tweede Jan van der Heijdenstraat 50 2 RA,50 2 RA,Tweede Jan van der 
 ,,,,,,,,,,,
 p1,1,1072,,Eerste Jan van der Heijdenstraat,weg,eq,eq,1,1,,verschil 10k - hele dataset
 p1,2f,1072,,Carolina MacGillavrylaan 1072,vbo,not eq,not eq,,,,
-p1,3,1072,,Eerste Jacob van Campenstraat,weg,eq,eq,,,,
+p1,3,1072,,Eerste Jacob van Campenstraat,weg,eq,eq,1,,,Valt buiten de dataset door limiet van 3
 p2,1,1072 TT,,Eerste Jan van der Heijdenstraat,weg,eq,eq,,,,
 p2,2f,1072 TT,,Eerste Jan van der Heijdenstraat 2,vbo,not eq,not eq,,1,,
 p2,3f,1072 TT,,Eerste Jan van der Heijdenstraat 22-2A,vbo,not eq,not eq,,6,,
@@ -60,8 +60,8 @@ p2,f5,1072TT,,Eerste Jan van der Heijdenstraat 2,vbo,not eq,not eq,,1,,
 p2,f6,1072TT,,Eerste Jan van der Heijdenstraat 22-2A,vbo,not eq,not eq,,6,,
 p3,f1,1072 TT 2,,Eerste Jan van der Heijdenstraat,weg,not eq,not eq,,,,
 p3,2,1072 TT 2,,Eerste Jan van der Heijdenstraat 2,vbo,eq,eq,,1,,
-p3,3,1072 TT 2,,Eerste Jan van der Heijdenstraat 20-3,vbo,eq,eq,,2,,
-p3,4,1072 TT 2,,Eerste Jan van der Heijdenstraat 22-1A,vbo,eq,eq,,6,,valt uit eerste 8
+p3,3,1072 TT 2,,Eerste Jan van der Heijdenstraat 2A,vbo,eq,eq,,2,,
+p3,4,1072 TT 2,,Eerste Jan van der Heijdenstraat 20-1,vbo,eq,eq,,6,,valt uit eerste 8
 p3,f5,1072 TT 2,,Eerste Jan van der Heijdenstraat 16-2,vbo,not eq,not eq,,,,
 p3,f6,1072 TT 2,,Eerste Jan van der Heijdenstraat 32-1,vbo,not eq,not eq,,,,
 ,,,,,,,,,,,
@@ -93,7 +93,7 @@ p3-extra,21,1074XV 50 2 RA,50 2 RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,e
 ,,,,,,,,,,,
 ,,,,,,,,,,,
 m1,f1,1038,,10381004,meetbout,not eq,not eq,,,,minder dan 5 cijfers is waarschijnlijk een postcode
-m1,2,10381,,10381004,meetbout,eq,eq,,1,,
+m1,2,10381,,10381002,meetbout,eq,eq,,1,,
 b1,1,AN30,,AN30,bouwblok,eq,eq,,1,,
 b1,2,AN3,,AN30,bouwblok,eq,eq,1,,,known issue: zou toch vanaf drie posities al moeten matchen
 b1,3,an30,,AN30,bouwblok,eq,eq,,,,
@@ -138,7 +138,7 @@ g1,5,medisch centrum,,Medisch Centrum Slotervaart (buurt),gebied,eq,eq,,5,,
 g1,6,centrum west,,Centrum-West (gebiedsgericht werken),gebied,eq,eq,,6,,
 g1,7,kern,,Kernzone (unesco),gebied,eq,eq,,,,
 ,,,,,,,,,,,
-kots,1,AMR03 B 3,,AMR03 B 03018 G 0000,kad. object,eq,eq,,,,https://dokuwiki.datapunt.amsterdam.nl/doku.php?id=start:uispecs:autokot
+kots,1,AMR03 B 3,,AMR03 B 03007 G 0000,kad. object,eq,eq,,,,https://dokuwiki.datapunt.amsterdam.nl/doku.php?id=start:uispecs:autokot
 kots,2,AMR03 B 3,,AMR03 B 00676 G 0000,kad. object,not eq,not eq,,,,
 kots,3,AMR03 B 33,,AMR03 B 03334 G 0000,kad. object,eq,eq,,,,
 kots,4,AMR03 B 33,,AMR03 B 030,kad. object,not eq,not eq,,,,
@@ -155,7 +155,15 @@ tg-894,4,sixhavenweg 1,,Sixhavenweg 11,ligplaats,eq,eq,,,,
 ,,,,,,,,,,,
 known,1,henk h,,Henk Henriëtstraat,weg,eq,eq,1,,,Wordt gezien als kadastraal object
 known,2a,buurt,,Buurt 2 (buurt),gebied,eq,eq,1,,,
-known,2b,buurt 2,,Buurt 2 (buurt),gebied,eq,eq,1,,,?
+known,2b,buurt 2,,Buurt 2 (buurt),gebied,eq,eq,,,,?
 known,3a,Plein 40,,Plein '40-'45 4,vbo,eq,eq,1,,,
 known,3b,Plein 40 45,,Plein '40-'45 4,vbo,eq,eq,1,,,
 known,4,zijkanaal h,,Zijkanaal H-weg 2,vbo,eq,eq,1,,,
+,,,,,,,,,,,
+hv1,1,000018360,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,,3,,prefixmatch vestnr
+hv1,2,18360,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,,3,,prefixmatch vestnr
+hv2,1,albert,,Albert A. van Daalen Business Services B.V. - Zuidplein 36,vestiging,eq,eq,,,,
+hv2,2,albert heij,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,1,,,#458
+hm1,1,350120,,Albert Heijn B.V.,mac,eq,eq,,,,prefixmatch kvknr
+hm2,1,albert,,'t Wethoudertje,mac,eq,eq,,,,
+hm2,2,albert heij,,Albert Heijn B.V.,mac,eq,eq,1,,,#458

@@ -16,6 +16,9 @@ parser.add_argument('url', help='URL to test')
 args = parser.parse_args()
 
 CAT_LABEL_MAP = {
+
+    'vestiging': 'Vestigingen',
+    'mac': 'Maatschappelijke activiteiten',
     'weg': 'Straatnamen',
     'vbo': 'Adres',
     'ligplaats': 'Adres',
@@ -84,7 +87,7 @@ class TestCase(object):
 def load_tests():
     all_tests = []
 
-    with open("robs_tests.csv") as csvfile:
+    with open("robs_tests.csv", encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
 
         for i, row in enumerate(reader):
@@ -135,6 +138,7 @@ def is_valid(response, test):
     else:
         return result_in_data
 
+
 def run_tests(all_tests):
     """
 
@@ -149,8 +153,7 @@ def run_tests(all_tests):
             raise SyntaxError("Could not execute test %s" % (test,))
 
         payload = {
-            'q': test.query,
-            'format': 'json'
+            'q': test.query
         }
         the_test_url = '{}/typeahead/'.format(args.url)
 

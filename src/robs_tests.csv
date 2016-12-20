@@ -101,7 +101,7 @@ b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,,
 ,,,,,,,,,,,
 s1,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,eq,eq,,,,minimaal een
 s1,2,linnaeus,, Linnaeusstraat,kad. subject,eq,eq,,1,,nu alleen prefix matchen
-s2,1,Linnaeusstraat 31,,Linnaeusstraat 31,kad. subject,eq,eq,1,1,,"known issue: straat huisnummer match, autocomplete zoekt dan niet verder op kad subjn (search doet het wel)"
+s2,1,Linnaeusstraat 31,,Linnaeusstraat 31,kad. subject,eq,eq,,1,,"fixed known issue: straat huisnummer match, autocomplete zoekt dan niet verder op kad subjn (search doet het wel)"
 ,,,,,,,,,,,
 o0,1,ASD15 S 00045,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,
 o0,2,ASD15 S 00045 G,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,
@@ -153,17 +153,17 @@ tg-894,2,dilbeekpad 3,,Dilbeekpad 3,standplaats,eq,eq,,,,
 tg-894,3,sixhavenweg 1,,Sixhavenweg 1,vbo,eq,eq,,,,
 tg-894,4,sixhavenweg 1,,Sixhavenweg 11,ligplaats,eq,eq,,,,
 ,,,,,,,,,,,
-known,1,henk h,,Henk Henriëtstraat,weg,eq,eq,1,,,Wordt gezien als kadastraal object
+known,1,henk h,,Henk Henriëtstraat,weg,eq,eq,,,,"fixed, werd gezien als kadastraal object"
 known,2a,buurt,,Buurt 2 (buurt),gebied,eq,eq,1,,,
 known,2b,buurt 2,,Buurt 2 (buurt),gebied,eq,eq,,,,?
 known,3a,Plein 40,,Plein '40-'45 4,vbo,eq,eq,1,,,
 known,3b,Plein 40 45,,Plein '40-'45 4,vbo,eq,eq,1,,,
-known,4,zijkanaal h,,Zijkanaal H-weg 2,vbo,eq,eq,1,,,
+known,4,zijkanaal h 2,,Zijkanaal H-weg 2,vbo,eq,eq,,,,fixed
 ,,,,,,,,,,,
 hv1,1,000018360,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,,3,,prefixmatch vestnr
 hv1,2,18360,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,,3,,prefixmatch vestnr
 hv2,1,albert,,Albert A. van Daalen Business Services B.V. - Zuidplein 36,vestiging,eq,eq,,,,
 hv2,2,albert heij,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,1,,,#458
 hm1,1,350120,,Albert Heijn B.V.,mac,eq,eq,,,,prefixmatch kvknr
-hm2,1,albert,,'t Wethoudertje,mac,eq,eq,,,,
+hm2,1,albert,,t Wethoudertje,mac,eq,eq,,,,
 hm2,2,albert heij,,Albert Heijn B.V.,mac,eq,eq,1,,,#458

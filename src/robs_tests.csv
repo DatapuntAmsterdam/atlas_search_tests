@@ -2,7 +2,7 @@ Test op eerste 10.000 records,,,,,,,,,,,
 ,,"In elke regel wordt, gegeven getypte input (in zoekveld), aangegeven of een bepaald resultaat moet worden getoond in autocomplete (en in zoekresultaten) ",,,,,,,,,
 ,,"Vb: gegeven dat 'linnea' is getyped in het zoekveld, dan tonen we wel (j) de Linnaeusdwarsstraat (een weg) in de autocomplete-lijst, en wel bovenaan (positie 1)",,,,,,,,,
 ,,(Scenario's zijn beschreven op confluence-pagina Zoeken),,,,Autocomplete,Zoekresultaat,Known failures,Positie in zoekresultaat (optioneel),,
-,,Getypte input,,,,/atlas/typeahead/?q=,@url,,,,
+,,Getypte input,,,,/typeahead/?q=,@url,,,,
 Name,Subname,q,(hulpkolom),Resultaat,Type (van resultaat),comparator,comparator,,,,Argumentatie (uit de specificatie)
 a1,1,Heijden,,Eerste Jan van der Heijdenstraat,weg,eq,eq,,1,,
 a1,2,Weter,,Weteringlaan,weg,eq,eq,,1,,prefix matches bovenaan sorteren

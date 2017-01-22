@@ -29,7 +29,7 @@
 
 - test:
     - name: "typeaheadpostcode"
-    - url: "/atlas/typeahead/?q=1018WR"
+    - url: "/typeahead/?q=1018WR"
     - validators:
         # - compare: {jsonpath_mini: "count", comparator: "ge", expected: 1}
         - extract_test: {jsonpath_mini: "0.content", test: "exists"}
@@ -37,7 +37,7 @@
 
 - test:
     - name: "meetbout"
-    - url: "/atlas/typeahead/?q=10381"
+    - url: "/typeahead/?q=10381"
     - validators:
         # - compare: {jsonpath_mini: "count", comparator: "ge", expected: 1}
         - extract_test: {jsonpath_mini: "0.content", test: "exists"}

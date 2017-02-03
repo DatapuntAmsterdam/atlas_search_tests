@@ -75,6 +75,5 @@
 
         - compare: {jsonpath_mini: "results.0.postadres", comparator: "eq", expected: "Van Spilbergenstraat 95 1 1057RB Amsterdam"}
         - compare: {jsonpath_mini: "results.0.bezoekadres", comparator: "eq", expected: "Van Spilbergenstraat 95 1 1057RB Amsterdam"}
-        - compare: {jsonpath_mini: "results.0.sbi.0.code", comparator: "eq", expected: "6201"}
-        - compare: {jsonpath_mini: "results.0.sbi.1.code", comparator: "eq", expected: "6202"}
-        - compare: {jsonpath_mini: "results.0.sbi.2.code", comparator: "eq", expected: "6209"}
+        - compare: {jsonpath_mini: "results.0.sbi", comparator: "count_eq", expected: 3}
+        - compare: {jsonpath_mini: "results.0.sbi[].code", comparator: "eq", expected: ["6201", "6202", "6209"]}

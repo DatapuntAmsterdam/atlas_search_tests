@@ -162,7 +162,7 @@ known,4,zijkanaal h 2,,Zijkanaal H-weg 2,vbo,eq,eq,,,,fixed
 ,,,,,,,,,,,
 hv1,1,000018360,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,,3,,prefixmatch vestnr
 hv1,2,18360,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,,3,,prefixmatch vestnr
-hv2,1,albert,,Albert A. van Daalen Business Services B.V. - Zuidplein 36,vestiging,eq,eq,,,,
+hv2,1,albert,,Albert A. van Daalen Business Services B.V. - Zuidplein,vestiging,eq,eq,,,,
 hv2,2,albert heij,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,1,,,#458
 hm1,1,350120,,Albert Heijn B.V.,mac,eq,eq,,,,prefixmatch kvknr
 hm2,1,albert,,t Wethoudertje,mac,eq,eq,,,,

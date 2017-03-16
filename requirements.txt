@@ -5,4 +5,5 @@ pycurl==7.43.0
 pyresttest==1.7.1
 requests==2.12.3
 datapunt-authorization-levels==0.1.0
-jwt==0.5.2
+PyJWT==1.4.2
+

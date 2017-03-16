@@ -81,15 +81,13 @@ class AuthorizationSetup(object):
         """
         # NEW STYLE AUTH
         key = os.getenv('JWT_SECRET_KEY')
-        algorithm = os.getenv('JWT_ALGORITHM')
+        algorithm = 'HS256'
 
         if not key:
-            log.debug('jwt key missing')
+            print('JWT key missing')
             return False
 
-        if not algorithm:
-            log.debug('jwt algorithm missing')
-            return False
+        print('We can create authorized requests!')
 
         now = int(time.time())
 
@@ -184,6 +182,7 @@ class TestCase(object):
             headers = {'Authorization': 'JWT {auth.token_employee_plus}'}
 
         response = requests.get(the_test_url, params=payload, headers=headers)
+
         return response
 
     def is_valid(self, response):

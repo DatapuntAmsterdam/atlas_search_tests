@@ -1,2 +1,4 @@
 tests:
   build: .
+  environment:
+    JWT_SECRET_KEY:

@@ -89,6 +89,7 @@ class AuthorizationSetup(object):
             WARNING WARNING WARNING
 
             'JWT_SECRET_KEY' MISSING!!
+
             """)
             return False
 

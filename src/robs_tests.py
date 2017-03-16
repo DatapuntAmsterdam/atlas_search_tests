@@ -84,7 +84,12 @@ class AuthorizationSetup(object):
         algorithm = 'HS256'
 
         if not key:
-            print('JWT key missing')
+            print("""
+
+            WARNING WARNING WARNING
+
+            'JWT_SECRET_KEY' MISSING!!
+            """)
             return False
 
         print('We can create authorized requests!')

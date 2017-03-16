@@ -76,7 +76,7 @@ class AuthorizationSetup(object):
         to use with:
 
         self.client.credentials(
-            HTTP_AUTHORIZATION='JWT {}'.format(self.token_employee_plus))
+            HTTP_AUTHORIZATION='Bearer {}'.format(self.token_employee_plus))
 
         """
         # NEW STYLE AUTH
@@ -183,9 +183,9 @@ class TestCase(object):
 
         # set authorization if needed
         if self.auth_level == '1':
-            headers = {'Authorization': f'JWT {auth.token_employee}'}
+            headers = {'Authorization': f'Bearer {auth.token_employee}'}
         elif self.auth_level == '2':
-            headers = {'Authorization': f'JWT {auth.token_employee_plus}'}
+            headers = {'Authorization': f'Bearer {auth.token_employee_plus}'}
 
         response = requests.get(the_test_url, params=payload, headers=headers)
 

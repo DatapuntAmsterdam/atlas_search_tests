@@ -1,8 +1,16 @@
 #!/usr/bin/env python
 """
-Run the tests from the rob xsl/csv
+Run the tests from the collected by rob mayers xsl/csv
+
+
 """
 
+import time
+import jwt
+
+import authorization_levels
+
+import logging
 import argparse
 import csv
 import os
@@ -10,13 +18,16 @@ import os
 import requests
 
 parser = argparse.ArgumentParser(description='Test rob osv tests')
-
 parser.add_argument('url', help='URL to test')
-
 args = parser.parse_args()
 
-CATEGORY_LABEL_MAP = {
 
+# logging.basicConfig(level=logging.EBUG)
+
+log = logging.getLogger(__name__)
+
+
+CATEGORY_LABEL_MAP = {
     'vestiging': 'Vestigingen',
     'mac': 'Maatschappelijke activiteiten',
     'weg': 'Straatnamen',
@@ -31,9 +42,73 @@ CATEGORY_LABEL_MAP = {
     'buurtcombinatie': 'Buurtcombinatie',
     'grootstedelijk': 'Grootstedelijk',
     'kad. subject': 'Kadastrale subjecten',
+    'kad. subject.persoon': 'Kadastrale subjecten',
     'kad. object': 'Kadastrale objecten'
-
 }
+
+
+class AuthorizationSetup(object):
+    """
+    Helper methods to setup JWT tokens and authorization levels
+
+    sets the following attributes:
+
+    token_default
+    token_employee
+    token_employee_plus
+    """
+    def __init__(self):
+
+        self.token_default = None
+        self.token_employee = None
+        self.token_employee_plus = None
+
+        self.set_up_authorization()
+
+    def set_up_authorization(self):
+        """
+        SET
+
+        token_default
+        token_employee
+        token_employee_plus
+
+        to use with:
+
+        self.client.credentials(
+            HTTP_AUTHORIZATION='JWT {}'.format(self.token_employee_plus))
+
+        """
+        # NEW STYLE AUTH
+        key = os.getenv('JWT_SECRET_KEY')
+        algorithm = os.getenv('JWT_ALGORITHM')
+
+        if not key:
+            log.debug('jwt key missing')
+            return False
+
+        if not algorithm:
+            log.debug('jwt algorithm missing')
+            return False
+
+        now = int(time.time())
+
+        token_default = jwt.encode({
+            'authz': authorization_levels.LEVEL_DEFAULT,
+            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+        token_employee = jwt.encode({
+            'authz': authorization_levels.LEVEL_EMPLOYEE,
+            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+        token_employee_plus = jwt.encode({
+            'authz': authorization_levels.LEVEL_EMPLOYEE_PLUS,
+            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+
+        self.token_default = str(token_default, 'utf-8')
+        self.token_employee = str(token_employee, 'utf-8')
+        self.token_employee_plus = str(token_employee_plus, 'utf-8')
+
+
+auth = AuthorizationSetup()
 
 
 class TestCase(object):
@@ -67,8 +142,9 @@ class TestCase(object):
         self.comparator_typeahead = row[6]
         self.comparator_search = row[7]
         self.known_failure = (row[8] == "1")
-        self.expected_position = row[9]
-        self.documentation = row[11]
+        self.auth_level = row[9]
+        self.expected_position = row[10]
+        self.documentation = row[12]
         self.category_data = []
 
         self._check_comparator(self.comparator_search)
@@ -99,7 +175,15 @@ class TestCase(object):
 
         payload = {'q': self.query}
         the_test_url = '{}/typeahead/'.format(args.url)
-        response = requests.get(the_test_url, params=payload)
+        headers = {}
+
+        # set authorization if needed
+        if self.auth_level == '1':
+            headers = {'Authorization': 'JWT {auth.token_employee}'}
+        elif self.auth_level == '2':
+            headers = {'Authorization': 'JWT {auth.token_employee_plus}'}
+
+        response = requests.get(the_test_url, params=payload, headers=headers)
         return response
 
     def is_valid(self, response):
@@ -150,10 +234,11 @@ def load_tests():
         reader = csv.reader(csvfile)
 
         for i, row in enumerate(reader):
-            if i < 6:
-                # skip first 6 lines
+            # skip first 6 lines
+            if i < 7:
                 continue
 
+            # commented out
             if not row[0] or row[0].startswith('#'):
                 continue
 

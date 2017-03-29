@@ -100,13 +100,13 @@ b1,2,AN3,,AN30,bouwblok,eq,eq,1,,,,known issue: zou toch vanaf drie posities al 
 b1,3,an30,,AN30,bouwblok,eq,eq,,,,,
 b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,,,
 ,,,,,,,,,,,,
-s0,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,not eq,not eq,,,,,minimaal een
+s0,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,no eq,no eq,,,,,minimaal een
 s1,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,eq,eq,,1,,,minimaal een
 s1,2,linnaeus,,Linnaeusstraat,kad. subject,eq,eq,,2,1,,nu alleen prefix matchen
 s2,1,Linnaeusstraat 31,,Linnaeusstraat 31,kad. subject,eq,eq,,2,1,,"fixed known issue: straat huisnummer match, autocomplete zoekt dan niet verder op kad subjn (search doet het wel)"
 s3,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,eq,eq,,2,,,
-s3,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,not eq,not eq,,1,,,
-s3,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,not eq,not eq,,,,,
+s3,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,no eq,no eq,,1,,,
+s3,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,no eq,no eq,,,,,
 ,,,,,,,,,,,,
 o0,1,ASD15 S 00045,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,,
 o0,2,ASD15 S 00045 G,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,,

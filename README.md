@@ -18,16 +18,20 @@ Het project bevat twee soorten tests:
 
 ## Runtests
 
-    resttest.py https://api-acc.datapunt.amsterdam.nl smoke_test.yml
+    resttest.py https://acc.api.data.amsterdam.nl smoke_test.yml
     
 ## Specific test for atlas client created by rob m and rob k.
 
-    python robs_tests.py https://api-acc.datapunt.amsterdam.nl
+    python robs_tests.py https://acc.api.data.amsterdam.nl
 
 
 ## Docker environment
 
+Either run the test directly or use the run script. Directly run test using:
+
     docker-compose build
-    docker-compose run smoketest resttest.py https://api-acc.datapunt.amsterdam.nl smoke_test.yml 
+    docker-compose run smoketest resttest.py https://acc.api.data.amsterdam.nl smoke_test.yml 
 
+Use the run script as follows:
 
+	URL=https://acc.api.data.amsterdam.nl ./run_tests.sh

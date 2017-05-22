@@ -96,7 +96,7 @@ p3-extra,21,1074XV 50 2 RA,50 2 RA,Tweede Jan van der Heijdenstraat 50-2RA,vbo,e
 m1,f1,1038,,10381004,meetbout,not eq,not eq,,,,,minder dan 5 cijfers is waarschijnlijk een postcode
 m1,2,10381,,10381002,meetbout,eq,eq,,,1,,
 b1,1,AN30,,AN30,bouwblok,eq,eq,,,1,,
-b1,2,AN3,,AN30,bouwblok,eq,eq,1,,,,known issue: zou toch vanaf drie posities al moeten matchen
+b1,2,AN3,,AN30,bouwblok,eq,eq,,,,,
 b1,3,an30,,AN30,bouwblok,eq,eq,,,,,
 b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,,,
 ,,,,,,,,,,,,

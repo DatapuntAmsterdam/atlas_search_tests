@@ -1,4 +1,4 @@
-Test op eerste 10.000 records,,,,,,,,,,,,
+Test op eerste 10.000 records,,,,BLIJF AF TENZIJ JE DIRECT MET SEARCH BEZIG BENT,KEEP OUT,,,,,,,
 0,1,2,3,4,5,6,7,8,9,10,,
 ,,"In elke regel wordt, gegeven getypte input (in zoekveld), aangegeven of een bepaald resultaat moet worden getoond in autocomplete (en in zoekresultaten) ",,,,,,,,,,
 ,,"Vb: gegeven dat 'linnea' is getyped in het zoekveld, dan tonen we wel (j) de Linnaeusdwarsstraat (een weg) in de autocomplete-lijst, en wel bovenaan (positie 1)",,,,,,,,,,
@@ -100,13 +100,11 @@ b1,2,AN3,,AN30,bouwblok,eq,eq,1,,,,known issue: zou toch vanaf drie posities al 
 b1,3,an30,,AN30,bouwblok,eq,eq,,,,,
 b1,f3,AN30,,Churchill-laan 30,vbo,not eq,not eq,,,,,
 ,,,,,,,,,,,,
-s0,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,not eq,not eq,,,,,minimaal een
-s1,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,eq,eq,,1,,,minimaal een
-s1,2,linnaeus,,Linnaeusstraat,kad. subject,eq,eq,,2,1,,nu alleen prefix matchen
-s2,1,Linnaeusstraat 31,,Linnaeusstraat 31,kad. subject,eq,eq,,2,1,,"fixed known issue: straat huisnummer match, autocomplete zoekt dan niet verder op kad subjn (search doet het wel)"
-s3,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,eq,eq,,2,,,
-s3,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,not eq,not eq,,1,,,
-s3,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,not eq,not eq,,,,,
+s0-e,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,not eq,not eq,,,,,minimaal een
+s1-p,1,linnae,,Vereniging Van Eigenaars Linnaeus,kad. subject,eq,eq,,1,,,minimaal een
+s1-p,2,linnaeus,,Linnaeusstraat,kad. subject,eq,eq,,2,1,,nu alleen prefix matchen
+s2-p,1,Linnaeusstraat 31,,Linnaeusstraat 31,kad. subject,eq,eq,,2,1,,"fixed known issue: straat huisnummer match, autocomplete zoekt dan niet verder op kad subjn (search doet het wel)"
+s3-p,1,Sanne van der Meer,,Sanne van der Meer,kad. subject.persoon,eq,eq,,2,,,
 ,,,,,,,,,,,,
 o0,1,ASD15 S 00045,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,,
 o0,2,ASD15 S 00045 G,,ASD15 S 00045 G 0000,kad. object,eq,eq,,,,,
@@ -134,8 +132,12 @@ o3,20,Aalsmeer B 05054 0002,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,,,
 o3,21,Aalsmeer B 5054 2,,AMR03 B 05054 A 0002,kad. object,eq,eq,,,,,
 o3,f22,AMR03 B 47,,AMR03 B 03347 G 0000,kad. object,not eq,not eq,,,,,
 o3,f23,Aalsmeer B 47,,AMR03 B 03347 G 0000,kad. object,not eq,not eq,,,,,
+o4,25,amsterdam f,,ASD04 F,kad. object,eq,eq,,,,,
+o4,29,sloten a,,STN02 A,kad. object,eq,eq,,,,,
+o4,32,amsterdam a,,ASD04 F 07587 A 0007,kad. object,not eq,not eq,,,,,
+o4,33,amsterdam g,,ASD04 F 03361 G 0000,kad. object,not eq,not eq,,,,,
 ,,,,,,,,,,,,
-g1,1,wetenschappelijk centrum,,Wetenschappelijk centrum Watergraafsmeer (Sciencepark) (grootstedelijk gebied),gebied,eq,eq,,,1,,
+g1,1,sciencepark,,Sciencepark (grootstedelijk gebied),gebied,eq,eq,,,1,,
 g1,2,centrum,,Centrum (stadsdeel),gebied,eq,eq,,,2,,
 g1,3,bijlmer centrum,,"Bijlmer Centrum (D,F,H) (buurtcombinatie)",gebied,eq,eq,,,3,,
 g1,4,centrum,,Centrumeiland (buurt),gebied,eq,eq,1,,4,,

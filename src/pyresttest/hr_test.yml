@@ -67,7 +67,7 @@
         - compare: {jsonpath_mini: "results.0._links.self.href", comparator: "regex", expected: ".*/handelsregister/vestiging/000030256488/"}
         - compare: {jsonpath_mini: "results.0.type", comparator: "eq", expected: "vestiging"}
         - compare: {jsonpath_mini: "results.0.dataset", comparator: "eq", expected: "handelsregister"}
-        - compare: {jsonpath_mini: "results.0._display", comparator: "eq", expected: "Yottabyte Solutions - Van Spilbergenstraat 95-1"}
+        - compare: {jsonpath_mini: "results.0._display", comparator: "eq", expected: "Yottabyte Solutions - Van Spilbergenstraat 95 1"}
         - compare: {jsonpath_mini: "results.0.handelsnamen.0.naam", comparator: "eq", expected: "Yottabyte Solutions"}
         - compare: {jsonpath_mini: "results.0.vestigingsnummer", comparator: "eq", expected: "000030256488"}
         - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Yottabyte Solutions"}

@@ -118,7 +118,7 @@ class AuthorizationSetup(object):
             return False
 
         list_signers = [(k, v) for k, v in jwks_signers.items()]
-        (kid, key) = list_signers[0]
+        (kid, key) = list_signers[len(list_signers)-1]
         header = { "kid": kid}
 
         print('We can create authorized requests!')

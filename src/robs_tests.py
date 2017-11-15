@@ -17,6 +17,8 @@ import os
 
 import requests
 
+import jwks
+
 parser = argparse.ArgumentParser(description='Test rob osv tests')
 parser.add_argument('url', help='URL to test')
 args = parser.parse_args()
@@ -80,10 +82,32 @@ class AuthorizationSetup(object):
 
         """
         # NEW STYLE AUTH
-        key = os.getenv('JWT_SECRET_KEY')
-        algorithm = 'HS256'
+        # The following JWKS data was obtained in the authz project :  jwkgen -create -alg ES256
+        # This is a test public/private key def and added for testing .
+        JWKS_TEST_KEY = """
+            {
+                "keys": [
+                    {
+                        "kty": "EC",
+                        "key_ops": [
+                            "verify",
+                            "sign"
+                        ],
+                        "kid": "2aedafba-8170-4064-b704-ce92b7c89cc6",
+                        "crv": "P-256",
+                        "x": "6r8PYwqfZbq_QzoMA4tzJJsYUIIXdeyPA27qTgEJCDw=",
+                        "y": "Cf2clfAfFuuCB06NMfIat9ultkMyrMQO9Hd2H7O9ZVE=",
+                        "d": "N1vu0UQUp0vLfaNeM0EDbl4quvvL6m_ltjoAXXzkI3U="
+                    }
+                ]
+            }
+        """
 
-        if not key:
+        jwks_string = os.getenv('PUB_JWKS', JWKS_TEST_KEY)
+        jwks_signers = jwks.load(jwks_string).signers
+
+        assert len(jwks_signers) > 0
+        if  len(jwks_signers) == 0:
             print("""
 
             WARNING WARNING WARNING
@@ -93,19 +117,23 @@ class AuthorizationSetup(object):
             """)
             return False
 
+        list_signers = [(k, v) for k, v in jwks_signers.items()]
+        (kid, key) = list_signers[0]
+        header = { "kid": kid}
+
         print('We can create authorized requests!')
 
         now = int(time.time())
 
         token_default = jwt.encode({
-            'authz': authorization_levels.LEVEL_DEFAULT,
-            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+            'scopes': [],
+            'iat': now, 'exp': now + 600}, key.key, algorithm=key.alg, headers=header)
         token_employee = jwt.encode({
-            'authz': authorization_levels.LEVEL_EMPLOYEE,
-            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+            'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE],
+            'iat': now, 'exp': now + 600}, key.key, algorithm=key.alg, headers=header)
         token_employee_plus = jwt.encode({
-            'authz': authorization_levels.LEVEL_EMPLOYEE_PLUS,
-            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+            'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS],
+            'iat': now, 'exp': now + 600}, key.key, algorithm=key.alg, headers=header)
 
         self.token_default = str(token_default, 'utf-8')
         self.token_employee = str(token_employee, 'utf-8')

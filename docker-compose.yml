@@ -1,4 +1,4 @@
 tests:
   build: .
   environment:
-    JWT_SECRET_KEY:
+    PUB_JWKS:

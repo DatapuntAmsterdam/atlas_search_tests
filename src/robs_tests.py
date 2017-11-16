@@ -17,7 +17,7 @@ import os
 
 import requests
 
-import jwks
+from authorization_django import jwks
 
 parser = argparse.ArgumentParser(description='Test rob osv tests')
 parser.add_argument('url', help='URL to test')

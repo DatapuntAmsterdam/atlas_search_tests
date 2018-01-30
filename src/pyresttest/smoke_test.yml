@@ -24,7 +24,7 @@
     - validators:
         # - compare: {jsonpath_mini: "count", comparator: "ge", expected: 1}
         - extract_test: {jsonpath_mini: "results", test: "exists"}
-        - compare: {jsonpath_mini: "results.0.type", comparator: "eq", expected: "openbare_ruimte"}
+        # - compare: {jsonpath_mini: "results.0.type", comparator: "eq", expected: "openbare_ruimte"}
         - compare: {jsonpath_mini: "results.0.naam", comparator: "eq", expected: "Nieuwe Achtergracht"}
 
 - test:

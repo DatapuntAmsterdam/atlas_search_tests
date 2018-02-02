@@ -168,8 +168,8 @@ known,3a,Plein 40,,Plein '40-'45 4,vbo,eq,eq,1,,,,
 known,3b,Plein 40 45,,Plein '40-'45 4,vbo,eq,eq,1,,,,
 known,4,zijkanaal h 2,,Zijkanaal H-weg 2,vbo,eq,eq,,,,,fixed
 ,,,,,,,,,,,,
-hv1,1,000018360,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,,1,3,,prefixmatch vestnr
-hv1,2,18360,,Albert Heijn - Jodenbreestraat 21,vestiging,eq,eq,,1,3,,prefixmatch vestnr
+hv1,1,000018360,,Albert Heijn,vestiging,eq,eq,,1,3,,prefixmatch vestnr
+hv1,2,18360,,Albert Heijn,vestiging,eq,eq,,1,3,,prefixmatch vestnr
 hv2,1,albert,,Albert,vestiging,eq,eq,,1,,,
 hv2,2,albert heij,,Albert Heijn,vestiging,eq,eq,1,1,,,#458
 hm1,1,350120,,Albert Heijn B.V.,mac,eq,eq,,1,,,prefixmatch kvknr

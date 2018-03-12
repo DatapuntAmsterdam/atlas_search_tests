@@ -121,7 +121,10 @@ class AuthorizationSetup(object):
         (kid, key) = list_signers[len(list_signers)-1]
         header = { "kid": kid}
 
-        print('We can create authorized requests!')
+        if os.getenv('PUB_JWKS'):
+            print('We can create authorized requests!')
+        else:
+            print('\n We can NOT create authorized requests! \n')
 
         now = int(time.time())
 
@@ -249,7 +252,8 @@ class TestCase(object):
             return should_not_find
 
         display_results = [r['_display'] for r in search_result]
-        # check if expected result is in any display field
+        # check if expected result is in
+        # any display field
         result_in_data = self.expected in "|".join(display_results)
 
         self.category_data = display_results

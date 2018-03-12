@@ -227,6 +227,9 @@ class TestCase(object):
         Check if expected result value is found in search response
         """
         if response.status_code != 200:
+            log.error(response.status_code)
+            log.error(response.text)
+            log.error(response)
             return False
 
         data = response.json()

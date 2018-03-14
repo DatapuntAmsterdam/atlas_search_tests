@@ -8,6 +8,6 @@ docker-compose rm -f
 
 docker-compose build
 
-docker-compose run tests ./robs_tests.py $URL
+docker-compose run --rm tests ./robs_tests.py $URL
 
-docker-compose run tests ./pyresttest.sh $URL
+docker-compose run --rm tests ./pyresttest.sh $URL

@@ -24,9 +24,10 @@ parser.add_argument('url', help='URL to test')
 args = parser.parse_args()
 
 
-# logging.basicConfig(level=logging.EBUG)
-
-log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
+log = logging.getLogger('searchtests')
+log.setLevel(logging.DEBUG)
+logging.getLogger('requests').setLevel(logging.ERROR)
 
 
 CATEGORY_LABEL_MAP = {
@@ -317,16 +318,16 @@ def run_tests(all_tests):
             '' if is_ok else test.expected
         )
 
-        print(status)
+        log.debug(status)
         if not is_ok and not test.known_failure:
-            print('We got: %s' % test.category_data)
+            log.debug('We got: %s' % test.category_data)
 
     if failed:
-        print('Failed: %s of %s' % (failed, len(all_tests)))
+        log.debug('Failed: %s of %s' % (failed, len(all_tests)))
         os.sys.exit(9)
     else:
-        print('Known failures: %s of %s' % (known_failures, len(all_tests)))
-        print('SUCCESS')
+        log.info('Known failures: %s of %s' % (known_failures, len(all_tests)))
+        log.info('SUCCESS')
         os.sys.exit(0)
 
 

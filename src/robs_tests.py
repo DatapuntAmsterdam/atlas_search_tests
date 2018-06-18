@@ -2,7 +2,7 @@
 """
 Run the tests from the collected by rob mayers xsl/csv
 
-
+Only run's against typeahead.
 """
 
 import time
@@ -17,14 +17,17 @@ import os
 
 import requests
 
+from authorization_django import jwks
+
 parser = argparse.ArgumentParser(description='Test rob osv tests')
 parser.add_argument('url', help='URL to test')
 args = parser.parse_args()
 
 
-# logging.basicConfig(level=logging.EBUG)
-
-log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
+log = logging.getLogger('searchtests')
+log.setLevel(logging.DEBUG)
+logging.getLogger('requests').setLevel(logging.ERROR)
 
 
 CATEGORY_LABEL_MAP = {
@@ -80,10 +83,32 @@ class AuthorizationSetup(object):
 
         """
         # NEW STYLE AUTH
-        key = os.getenv('JWT_SECRET_KEY')
-        algorithm = 'HS256'
+        # The following JWKS data was obtained in the authz project :  jwkgen -create -alg ES256
+        # This is a test public/private key def and added for testing .
+        JWKS_TEST_KEY = """
+            {
+                "keys": [
+                    {
+                        "kty": "EC",
+                        "key_ops": [
+                            "verify",
+                            "sign"
+                        ],
+                        "kid": "2aedafba-8170-4064-b704-ce92b7c89cc6",
+                        "crv": "P-256",
+                        "x": "6r8PYwqfZbq_QzoMA4tzJJsYUIIXdeyPA27qTgEJCDw=",
+                        "y": "Cf2clfAfFuuCB06NMfIat9ultkMyrMQO9Hd2H7O9ZVE=",
+                        "d": "N1vu0UQUp0vLfaNeM0EDbl4quvvL6m_ltjoAXXzkI3U="
+                    }
+                ]
+            }
+        """
 
-        if not key:
+        jwks_string = os.getenv('PUB_JWKS', JWKS_TEST_KEY)
+        jwks_signers = jwks.load(jwks_string).signers
+
+        assert len(jwks_signers) > 0
+        if  len(jwks_signers) == 0:
             print("""
 
             WARNING WARNING WARNING
@@ -93,19 +118,26 @@ class AuthorizationSetup(object):
             """)
             return False
 
-        print('We can create authorized requests!')
+        list_signers = [(k, v) for k, v in jwks_signers.items()]
+        (kid, key) = list_signers[len(list_signers)-1]
+        header = { "kid": kid}
+
+        if os.getenv('PUB_JWKS'):
+            print('We can create authorized requests!')
+        else:
+            print('\n We can NOT create authorized requests! \n')
 
         now = int(time.time())
 
         token_default = jwt.encode({
-            'authz': authorization_levels.LEVEL_DEFAULT,
-            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+            'scopes': [],
+            'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
         token_employee = jwt.encode({
-            'authz': authorization_levels.LEVEL_EMPLOYEE,
-            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+            'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE],
+            'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
         token_employee_plus = jwt.encode({
-            'authz': authorization_levels.LEVEL_EMPLOYEE_PLUS,
-            'iat': now, 'exp': now + 600}, key, algorithm=algorithm)
+            'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS],
+            'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
 
         self.token_default = str(token_default, 'utf-8')
         self.token_employee = str(token_employee, 'utf-8')
@@ -196,6 +228,9 @@ class TestCase(object):
         Check if expected result value is found in search response
         """
         if response.status_code != 200:
+            log.error(response.status_code)
+            log.error(response.text)
+            log.error(response)
             return False
 
         data = response.json()
@@ -221,7 +256,8 @@ class TestCase(object):
             return should_not_find
 
         display_results = [r['_display'] for r in search_result]
-        # check if expected result is in any display field
+        # check if expected result is in
+        # any display field
         result_in_data = self.expected in "|".join(display_results)
 
         self.category_data = display_results
@@ -282,16 +318,16 @@ def run_tests(all_tests):
             '' if is_ok else test.expected
         )
 
-        print(status)
+        log.debug(status)
         if not is_ok and not test.known_failure:
-            print('We got: %s' % test.category_data)
+            log.debug('We got: %s' % test.category_data)
 
     if failed:
-        print('Failed: %s of %s' % (failed, len(all_tests)))
+        log.debug('Failed: %s of %s' % (failed, len(all_tests)))
         os.sys.exit(9)
     else:
-        print('Known failures: %s of %s' % (known_failures, len(all_tests)))
-        print('SUCCESS')
+        log.info('Known failures: %s of %s' % (known_failures, len(all_tests)))
+        log.info('SUCCESS')
         os.sys.exit(0)
 
 

@@ -72,7 +72,7 @@
 
 - test:
     - name: "Typeahead postcode search"
-    - url: "/typeahead/?q=1092"
+    - url: "/typeahead/?q=1092AA"
     - validators:
         - compare: {jsonpath_mini: "0.content.0._display", comparator: "eq", expected: "'s-Gravesandestraat"}
 

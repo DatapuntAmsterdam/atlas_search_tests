@@ -143,7 +143,7 @@ g1,5,medisch centrum,,Medisch Centrum Slotervaart (buurt),gebied,eq,eq,,,5,,
 g1,6,centrum west,,Centrum-West (gebiedsgericht werken),gebied,eq,eq,,,6,,
 g1,7,kern,,Kernzone (unesco),gebied,eq,eq,,,,,
 ,,,,,,,,,,,,
-kots,1,AMR03 B 3,,AMR03 B 03007 G 0000,kad. object,eq,eq,,,,,https://dokuwiki.datapunt.amsterdam.nl/doku.php?id=start:uispecs:autokot
+kots,1,AMR03 B 3,,AMR03 B 03008 G 0000,kad. object,eq,eq,,,,,https://dokuwiki.datapunt.amsterdam.nl/doku.php?id=start:uispecs:autokot
 kots,2,AMR03 B 3,,AMR03 B 00676 G 0000,kad. object,not eq,not eq,,,,,
 kots,3,AMR03 B 33,,AMR03 B 03334 G 0000,kad. object,eq,eq,,,,,
 kots,4,AMR03 B 33,,AMR03 B 030,kad. object,not eq,not eq,,,,,

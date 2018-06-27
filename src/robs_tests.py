@@ -98,8 +98,7 @@ def get_access_token(username, password, acceptance, scopes):
     parsed = urlparse(returned_url)
     fragment = parse_qsl(parsed.fragment)
     access_token = fragment[0][1]
-    os.environ["ACCESS_TOKEN"] = access_token
-    return {"Authorization": 'Bearer ' + access_token}
+    return access_token
 
 
 class AuthorizationSetup(object):

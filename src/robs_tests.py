@@ -143,6 +143,7 @@ class AuthorizationSetup(object):
                                                     [s for s in authorization_levels.SCOPES_EMPLOYEE])
             self.token__employee_plus = get_access_token(username, password, environment == 'acceptance',
                                                          [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS])
+            print(f'We can create authorized requests for user {username} in {environment}!')
         else:
             # NEW STYLE AUTH
             # The following JWKS data was obtained in the authz project :  jwkgen -create -alg ES256

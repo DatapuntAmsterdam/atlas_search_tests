@@ -2,3 +2,6 @@ tests:
   build: .
   environment:
     PUB_JWKS:
+    PASSWORD:
+    USERNAME:
+    ENVIRONMENT:

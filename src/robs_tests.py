@@ -4,10 +4,6 @@ Run the tests from the collected by rob mayers xsl/csv
 
 Only run's against typeahead.
 """
-
-import time
-import jwt
-
 import logging
 import argparse
 import csv
@@ -16,7 +12,6 @@ import random
 import requests
 import string
 
-from authorization_django import jwks
 from urllib.parse import urlparse, parse_qsl
 
 parser = argparse.ArgumentParser(description='Test rob osv tests')
@@ -129,73 +124,20 @@ class AuthorizationSetup(object):
 
         """
         password = os.getenv('PASSWORD', 'unknown')
+        assert password != 'unknown'
+
         username = os.getenv('USERNAME', 'searchtest')
         environment = os.getenv('ENVIRONMENT', 'acceptance')
 
         scopes_employee = ['BRK/RO', 'MON/RBC', 'BRK/RS', 'TLLS/R', 'MON/RDM', 'HR/R', 'WKPB/RBDU']
         scopes_employee_plus = ['BRK/RO', 'MON/RBC', 'BRK/RS', 'TLLS/R', 'MON/RDM', 'BRK/RSN', 'HR/R', 'WKPB/RBDU']
 
-        if password != 'unknown':
-            self.token_employee = get_access_token(username, password, environment == 'acceptance', scopes_employee)
-            self.token_employee_plus = get_access_token(username, password, environment == 'acceptance',
-                                                        scopes_employee_plus)
-            # print(f'token_employee: {self.token_employee}')
-            # print(f'token_employee_plus: {self.token_employee_plus}')
-            print(f'We can create authorized requests for user {username} in {environment}!')
-        else:
-            # NEW STYLE AUTH
-            # The following JWKS data was obtained in the authz project :  jwkgen -create -alg ES256
-            # This is a test public/private key def and added for testing .
-            JWKS_TEST_KEY = """
-                {
-                    "keys": [
-                        {
-                            "kty": "EC",
-                            "key_ops": [
-                                "verify",
-                                "sign"
-                            ],
-                            "kid": "2aedafba-8170-4064-b704-ce92b7c89cc6",
-                            "crv": "P-256",
-                            "x": "6r8PYwqfZbq_QzoMA4tzJJsYUIIXdeyPA27qTgEJCDw=",
-                            "y": "Cf2clfAfFuuCB06NMfIat9ultkMyrMQO9Hd2H7O9ZVE=",
-                            "d": "N1vu0UQUp0vLfaNeM0EDbl4quvvL6m_ltjoAXXzkI3U="
-                        }
-                    ]
-                }
-            """
-
-            jwks_string = os.getenv('PUB_JWKS', JWKS_TEST_KEY)
-            jwks_signers = jwks.load(jwks_string).signers
-
-            assert len(jwks_signers) > 0
-            if len(jwks_signers) == 0:
-                print("""
-
-                WARNING WARNING WARNING
-
-                'JWT_SECRET_KEY' MISSING!!
-
-                """)
-                return False
-
-            list_signers = [(k, v) for k, v in jwks_signers.items()]
-            (kid, key) = list_signers[len(list_signers)-1]
-            header = {"kid": kid}
-
-            print('We can create authorized requests!')
-
-            now = int(time.time())
-
-            token_employee = jwt.encode({
-                'scopes': scopes_employee,
-                'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
-            token_employee_plus = jwt.encode({
-                'scopes': scopes_employee_plus,
-                'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
-
-            self.token_employee = str(token_employee, 'utf-8')
-            self.token_employee_plus = str(token_employee_plus, 'utf-8')
+        self.token_employee = get_access_token(username, password, environment == 'acceptance', scopes_employee)
+        self.token_employee_plus = get_access_token(username, password, environment == 'acceptance',
+                                                    scopes_employee_plus)
+        # print(f'token_employee: {self.token_employee}')
+        # print(f'token_employee_plus: {self.token_employee_plus}')
+        print(f'We can create authorized requests for user {username} in {environment}!')
 
 
 auth = AuthorizationSetup()

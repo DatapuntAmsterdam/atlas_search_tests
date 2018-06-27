@@ -14,10 +14,12 @@ import logging
 import argparse
 import csv
 import os
-
+import random
 import requests
+import string
 
 from authorization_django import jwks
+from urllib.parse import urlparse, parse_qsl
 
 parser = argparse.ArgumentParser(description='Test rob osv tests')
 parser.add_argument('url', help='URL to test')
@@ -48,6 +50,56 @@ CATEGORY_LABEL_MAP = {
     'kad. subject.persoon': 'Kadastrale subjecten',
     'kad. object': 'Kadastrale objecten'
 }
+
+
+def randomword(length):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for _ in range(length))
+
+
+def get_access_token(username, password, acceptance, scopes):
+    state = randomword(10)
+    acc_prefix = 'acc.' if acceptance else ''
+    authz_url = f'https://{acc_prefix}api.data.amsterdam.nl/oauth2/authorize'
+    params = {
+        'idp_id': 'datapunt',
+        'response_type': 'token',
+        'client_id': 'citydata',
+        'scope': ' '.join(scopes),
+        'state': state,
+        'redirect_uri': f'https://{acc_prefix}data.amsterdam.nl/'
+    }
+
+    response = requests.get(authz_url, params, allow_redirects=False)
+    if response.status_code == 303:
+        location = response.headers["Location"]
+    else:
+        return {}
+
+    data = {
+        'type': 'employee_plus',
+        'email': username,
+        'password': password,
+    }
+
+    response = requests.post(location, data=data, allow_redirects=False)
+    if response.status_code == 303:
+        location = response.headers["Location"]
+    else:
+        return {}
+
+    response = requests.get(location, allow_redirects=False)
+    if response.status_code == 303:
+        returned_url = response.headers["Location"]
+    else:
+        return {}
+
+    # Get grantToken from parameter aselect_credentials in session URL
+    parsed = urlparse(returned_url)
+    fragment = parse_qsl(parsed.fragment)
+    access_token = fragment[0][1]
+    os.environ["ACCESS_TOKEN"] = access_token
+    return {"Authorization": 'Bearer ' + access_token}
 
 
 class AuthorizationSetup(object):
@@ -82,66 +134,73 @@ class AuthorizationSetup(object):
             HTTP_AUTHORIZATION='Bearer {}'.format(self.token_employee_plus))
 
         """
-        # NEW STYLE AUTH
-        # The following JWKS data was obtained in the authz project :  jwkgen -create -alg ES256
-        # This is a test public/private key def and added for testing .
-        JWKS_TEST_KEY = """
-            {
-                "keys": [
-                    {
-                        "kty": "EC",
-                        "key_ops": [
-                            "verify",
-                            "sign"
-                        ],
-                        "kid": "2aedafba-8170-4064-b704-ce92b7c89cc6",
-                        "crv": "P-256",
-                        "x": "6r8PYwqfZbq_QzoMA4tzJJsYUIIXdeyPA27qTgEJCDw=",
-                        "y": "Cf2clfAfFuuCB06NMfIat9ultkMyrMQO9Hd2H7O9ZVE=",
-                        "d": "N1vu0UQUp0vLfaNeM0EDbl4quvvL6m_ltjoAXXzkI3U="
-                    }
-                ]
-            }
-        """
-
-        jwks_string = os.getenv('PUB_JWKS', JWKS_TEST_KEY)
-        jwks_signers = jwks.load(jwks_string).signers
-
-        assert len(jwks_signers) > 0
-        if  len(jwks_signers) == 0:
-            print("""
-
-            WARNING WARNING WARNING
-
-            'JWT_SECRET_KEY' MISSING!!
-
-            """)
-            return False
-
-        list_signers = [(k, v) for k, v in jwks_signers.items()]
-        (kid, key) = list_signers[len(list_signers)-1]
-        header = { "kid": kid}
-
-        if os.getenv('PUB_JWKS'):
-            print('We can create authorized requests!')
+        password = os.getenv('PASSWORD', 'unknown')
+        username = os.getenv('USERNAME', 'searchtest')
+        environment = os.getenv('ENVIRONMENT', 'acceptance')
+        if password != 'unknown':
+            self.token_default = get_access_token(username, password, environment == 'acceptance', [])
+            self.token__employee = get_access_token(username, password, environment == 'acceptance',
+                                                    [s for s in authorization_levels.SCOPES_EMPLOYEE])
+            self.token__employee_plus = get_access_token(username, password, environment == 'acceptance',
+                                                         [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS])
         else:
-            print('\n We can NOT create authorized requests! \n')
+            # NEW STYLE AUTH
+            # The following JWKS data was obtained in the authz project :  jwkgen -create -alg ES256
+            # This is a test public/private key def and added for testing .
+            JWKS_TEST_KEY = """
+                {
+                    "keys": [
+                        {
+                            "kty": "EC",
+                            "key_ops": [
+                                "verify",
+                                "sign"
+                            ],
+                            "kid": "2aedafba-8170-4064-b704-ce92b7c89cc6",
+                            "crv": "P-256",
+                            "x": "6r8PYwqfZbq_QzoMA4tzJJsYUIIXdeyPA27qTgEJCDw=",
+                            "y": "Cf2clfAfFuuCB06NMfIat9ultkMyrMQO9Hd2H7O9ZVE=",
+                            "d": "N1vu0UQUp0vLfaNeM0EDbl4quvvL6m_ltjoAXXzkI3U="
+                        }
+                    ]
+                }
+            """
 
-        now = int(time.time())
+            jwks_string = os.getenv('PUB_JWKS', JWKS_TEST_KEY)
+            jwks_signers = jwks.load(jwks_string).signers
 
-        token_default = jwt.encode({
-            'scopes': [],
-            'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
-        token_employee = jwt.encode({
-            'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE],
-            'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
-        token_employee_plus = jwt.encode({
-            'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS],
-            'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
+            assert len(jwks_signers) > 0
+            if len(jwks_signers) == 0:
+                print("""
 
-        self.token_default = str(token_default, 'utf-8')
-        self.token_employee = str(token_employee, 'utf-8')
-        self.token_employee_plus = str(token_employee_plus, 'utf-8')
+                WARNING WARNING WARNING
+
+                'JWT_SECRET_KEY' MISSING!!
+
+                """)
+                return False
+
+            list_signers = [(k, v) for k, v in jwks_signers.items()]
+            (kid, key) = list_signers[len(list_signers)-1]
+            header = {"kid": kid}
+
+            print('We can create authorized requests!')
+
+            now = int(time.time())
+
+            token_default = jwt.encode({
+                'scopes': [],
+                'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
+            token_employee = jwt.encode({
+                'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE],
+                'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
+            token_employee_plus = jwt.encode({
+                'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS],
+                'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
+
+            self.token_default = str(token_default, 'utf-8')
+            self.token_employee = str(token_employee, 'utf-8')
+            self.token_employee_plus = str(token_employee_plus, 'utf-8')
 
 
 auth = AuthorizationSetup()

@@ -8,8 +8,6 @@ Only run's against typeahead.
 import time
 import jwt
 
-import authorization_levels
-
 import logging
 import argparse
 import csv
@@ -107,13 +105,11 @@ class AuthorizationSetup(object):
 
     sets the following attributes:
 
-    token_default
     token_employee
     token_employee_plus
     """
     def __init__(self):
 
-        self.token_default = None
         self.token_employee = None
         self.token_employee_plus = None
 
@@ -123,7 +119,6 @@ class AuthorizationSetup(object):
         """
         SET
 
-        token_default
         token_employee
         token_employee_plus
 
@@ -134,16 +129,18 @@ class AuthorizationSetup(object):
 
         """
         password = os.getenv('PASSWORD', 'unknown')
-        username = os.getenv('USERNAME', 'searchtest@amsterdam.nl')
+        username = os.getenv('USERNAME', 'searchtest')
         environment = os.getenv('ENVIRONMENT', 'acceptance')
+
+        scopes_employee = ['BRK/RO', 'MON/RBC', 'BRK/RS', 'TLLS/R', 'MON/RDM', 'HR/R', 'WKPB/RBDU']
+        scopes_employee_plus = ['BRK/RO', 'MON/RBC', 'BRK/RS', 'TLLS/R', 'MON/RDM', 'BRK/RSN', 'HR/R', 'WKPB/RBDU']
+
         if password != 'unknown':
-            self.token_default = get_access_token(username, password, environment == 'acceptance', [])
+            self.token_employee = get_access_token(username, password, environment == 'acceptance', scopes_employee)
             self.token_employee_plus = get_access_token(username, password, environment == 'acceptance',
-                                                         [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS])
-            self.token_employee = get_access_token(username, password, environment == 'acceptance',
-                                                    [s for s in authorization_levels.SCOPES_EMPLOYEE])
-            print(f'token_employee: {self.token_employee}')
-            print(f'token_employee_plus: {self.token_employee_plus}')
+                                                        scopes_employee_plus)
+            # print(f'token_employee: {self.token_employee}')
+            # print(f'token_employee_plus: {self.token_employee_plus}')
             print(f'We can create authorized requests for user {username} in {environment}!')
         else:
             # NEW STYLE AUTH
@@ -190,17 +187,13 @@ class AuthorizationSetup(object):
 
             now = int(time.time())
 
-            token_default = jwt.encode({
-                'scopes': [],
-                'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
             token_employee = jwt.encode({
-                'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE],
+                'scopes': scopes_employee,
                 'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
             token_employee_plus = jwt.encode({
-                'scopes': [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS],
+                'scopes': scopes_employee_plus,
                 'iat': now, 'exp': now + 3600}, key.key, algorithm=key.alg, headers=header)
 
-            self.token_default = str(token_default, 'utf-8')
             self.token_employee = str(token_employee, 'utf-8')
             self.token_employee_plus = str(token_employee_plus, 'utf-8')
 

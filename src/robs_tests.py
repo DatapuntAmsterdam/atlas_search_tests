@@ -134,16 +134,16 @@ class AuthorizationSetup(object):
 
         """
         password = os.getenv('PASSWORD', 'unknown')
-        username = os.getenv('USERNAME', 'searchtest')
+        username = os.getenv('USERNAME', 'searchtest@amsterdam.nl')
         environment = os.getenv('ENVIRONMENT', 'acceptance')
         if password != 'unknown':
             self.token_default = get_access_token(username, password, environment == 'acceptance', [])
-            self.token_employee = get_access_token(username, password, environment == 'acceptance',
-                                                    [s for s in authorization_levels.SCOPES_EMPLOYEE])
             self.token_employee_plus = get_access_token(username, password, environment == 'acceptance',
                                                          [s for s in authorization_levels.SCOPES_EMPLOYEE_PLUS])
+            self.token_employee = get_access_token(username, password, environment == 'acceptance',
+                                                    [s for s in authorization_levels.SCOPES_EMPLOYEE])
             print(f'token_employee: {self.token_employee}')
-            print(f'token_employee: {self.token_employee_plus}')
+            print(f'token_employee_plus: {self.token_employee_plus}')
             print(f'We can create authorized requests for user {username} in {environment}!')
         else:
             # NEW STYLE AUTH

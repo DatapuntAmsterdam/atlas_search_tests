@@ -1,4 +1,4 @@
-cryptography==2.1.2
+cryptography==2.3
 datapunt-authorization-django==0.2.18
 future==0.16.0
 jsonschema==2.5.1

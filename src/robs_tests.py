@@ -50,7 +50,7 @@ def randomword(length):
     return ''.join(random.choice(letters) for _ in range(length))
 
 
-def get_access_token(username, password, acceptance, scopes):
+def get_access_token(username, password, acceptance: bool, scopes):
     state = randomword(10)
     acc_prefix = 'acc.' if acceptance else ''
     authz_url = f'https://{acc_prefix}api.data.amsterdam.nl/oauth2/authorize'
@@ -129,15 +129,26 @@ class AuthorizationSetup(object):
         username = os.getenv('USERNAME', 'searchtest')
         environment = os.getenv('ENVIRONMENT', 'acceptance')
 
-        scopes_employee = ['BRK/RO', 'MON/RBC', 'BRK/RS', 'TLLS/R', 'MON/RDM', 'HR/R', 'WKPB/RBDU']
-        scopes_employee_plus = ['BRK/RO', 'MON/RBC', 'BRK/RS', 'TLLS/R', 'MON/RDM', 'BRK/RSN', 'HR/R', 'WKPB/RBDU']
+        scopes_employee = [
+            'BRK/RO', 'MON/RBC', 'BRK/RS', 'TLLS/R',
+            'MON/RDM', 'HR/R', 'WKPB/RBDU']
 
-        self.token_employee = get_access_token(username, password, environment == 'acceptance', scopes_employee)
-        self.token_employee_plus = get_access_token(username, password, environment == 'acceptance',
-                                                    scopes_employee_plus)
+        scopes_employee_plus = [
+            'BRK/RO', 'MON/RBC', 'BRK/RS', 'TLLS/R',
+            'MON/RDM', 'BRK/RSN', 'HR/R', 'WKPB/RBDU']
+
+        self.token_employee = get_access_token(
+            username, password,
+            environment == 'acceptance', scopes_employee)
+
+        self.token_employee_plus = get_access_token(
+            username, password,
+            environment == 'acceptance',
+            scopes_employee_plus)
+
         # print(f'token_employee: {self.token_employee}')
         # print(f'token_employee_plus: {self.token_employee_plus}')
-        print(f'We can create authorized requests for user {username} in {environment}!')
+        print(f'Created authorized requests user {username} in {environment}!')
 
 
 auth = AuthorizationSetup()

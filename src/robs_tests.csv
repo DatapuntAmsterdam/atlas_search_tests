@@ -174,3 +174,5 @@ hv2,1,albert,,Albert,vestiging,eq,eq,,1,,,
 hv2,2,albert heij,,Albert Heijn,vestiging,eq,eq,1,1,,,#458
 hm1,1,350120,,Albert Heijn B.V.,mac,eq,eq,,1,,,prefixmatch kvknr
 hm2,2,albert heij,,Albert Heijn B.V.,mac,eq,eq,1,1,,,#458
+mon,1,botanicus,,Ingangsplek Hortus Botanicus,monumenten,eq,eq,,,,,
+mon,2,rijksmuseum,,Rijksmuseumcomplex (complex),monumenten,eq,eq,,,,,

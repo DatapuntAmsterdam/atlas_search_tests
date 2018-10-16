@@ -41,7 +41,8 @@ CATEGORY_LABEL_MAP = {
     'grootstedelijk': 'Grootstedelijk',
     'kad. subject': 'Kadastrale subjecten',
     'kad. subject.persoon': 'Kadastrale subjecten',
-    'kad. object': 'Kadastrale objecten'
+    'kad. object': 'Kadastrale objecten',
+    'monumenten': 'Monumenten'
 }
 
 

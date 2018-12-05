@@ -42,7 +42,8 @@ CATEGORY_LABEL_MAP = {
     'kad. subject': 'Kadastrale subjecten',
     'kad. subject.persoon': 'Kadastrale subjecten',
     'kad. object': 'Kadastrale objecten',
-    'monumenten': 'Monumenten'
+    'monumenten': 'Monumenten',
+    'datasets': 'Datasets'
 }
 
 

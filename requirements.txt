@@ -1,5 +1,5 @@
 cryptography==2.3
-datapunt-authorization-django==0.2.18
+datapunt-authorization-django>=0.2.23
 future==0.16.0
 jsonschema==2.5.1
 pycurl==7.43.0

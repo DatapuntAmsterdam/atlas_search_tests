@@ -1,4 +1,4 @@
-Test op eerste 10.000 records,,,,BLIJF AF TENZIJ JE DIRECT MET SEARCH BEZIG BENT,KEEP OUT,,,,,,,
+Test op eerste 10.000 records,,,,BLIJF AF TENZIJ JE DIRECT MET SEARCH BEZIG BENT,Update in search_tests repository om de nieuwe versie van deze sheet te gebruiken,,,,,,,
 0,1,2,3,4,5,6,7,8,9,10,,
 ,,"In elke regel wordt, gegeven getypte input (in zoekveld), aangegeven of een bepaald resultaat moet worden getoond in autocomplete (en in zoekresultaten) ",,,,,,,,,,
 ,,"Vb: gegeven dat 'linnea' is getyped in het zoekveld, dan tonen we wel (j) de Linnaeusdwarsstraat (een weg) in de autocomplete-lijst, en wel bovenaan (positie 1)",,,,,,,,,,
@@ -174,3 +174,10 @@ hv2,1,albert,,Albert,vestiging,eq,eq,,1,,,
 hv2,2,albert heij,,Albert Heijn,vestiging,eq,eq,1,1,,,#458
 hm1,1,350120,,Albert Heijn B.V.,mac,eq,eq,,1,,,prefixmatch kvknr
 hm2,2,albert heij,,Albert Heijn B.V.,mac,eq,eq,1,1,,,#458
+,,,,,,,,,,,,
+mon1,1,botanicus,,Ingangshek Hortus Botanicus,monumenten,eq,eq,,,,,
+mon2,2,rijksmuseum,,Rijksmuseumcomplex (complex),monumenten,eq,eq,,,,,
+,,,,,,,,,,,,
+dcat1,,fietsnetwerk,,Fietsnetwerk Amsterdam,datasets,eq,eq,,,,,
+dcat2,,water bijen,,Bijen in Amsterdam,datasets,eq,eq,,,,,
+dcat3,,provos in amsterdam,,Provos in Amsterdam,datasets,eq,eq,1,,,,

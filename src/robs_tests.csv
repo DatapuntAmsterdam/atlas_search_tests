@@ -174,10 +174,11 @@ hv2,1,albert,,Albert,vestiging,eq,eq,,1,,,
 hv2,2,albert heij,,Albert Heijn,vestiging,eq,eq,1,1,,,#458
 hm1,1,350120,,Albert Heijn B.V.,mac,eq,eq,,1,,,prefixmatch kvknr
 hm2,2,albert heij,,Albert Heijn B.V.,mac,eq,eq,1,1,,,#458
+hm3,3,01130968,,EdDDD,mac,eq,eq,,1,,,prefixmatch kvknr
 ,,,,,,,,,,,,
 mon1,1,botanicus,,Ingangshek Hortus Botanicus,monumenten,eq,eq,,,,,
 mon2,2,rijksmuseum,,Rijksmuseumcomplex (complex),monumenten,eq,eq,,,,,
 ,,,,,,,,,,,,
 dcat1,,fietsnetwerk,,Fietsnetwerk Amsterdam,datasets,eq,eq,,,,,
 dcat2,,water bijen,,Bijen in Amsterdam,datasets,eq,eq,,,,,
-dcat3,,provos in amsterdam,,Provos in Amsterdam,datasets,eq,eq,1,,,,
+dcat3,,provos in amsterdam,,Provos in Amsterdam,datasets,eq,not eq,1,,,,

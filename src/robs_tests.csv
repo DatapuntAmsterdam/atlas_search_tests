@@ -159,7 +159,7 @@ kots,9,ASD05 G 08575 A 0,,ASD05 G 08575 A 0001,kad. object,eq,eq,,,,,
 tg-894,1,sixhavenweg 5,,Sixhavenweg 5,ligplaats,eq,eq,,,,,
 tg-894,2,dilbeekpad 3,,Dilbeekpad 3,standplaats,eq,eq,,,,,
 tg-894,3,sixhavenweg 1,,Sixhavenweg 1,vbo,eq,eq,,,,,
-tg-894,4,sixhavenweg 1,,Sixhavenweg 11,ligplaats,eq,eq,,,,,
+tg-894,4,sixhavenweg 2,,Sixhavenweg 22,ligplaats,eq,eq,,,,,
 ,,,,,,,,,,,,
 known,1,henk h,,Henk Henriëtstraat,weg,eq,eq,,,,,"fixed, werd gezien als kadastraal object"
 known,2a,buurt,,Buurt 2 (buurt),gebied,eq,eq,1,,,,

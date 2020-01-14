@@ -8,7 +8,6 @@ Name,Subname,q,(hulpkolom),Resultaat,Type (van resultaat),comparator,comparator,
 a1,1,Heijden,,Eerste Jan van der Heijdenstraat,weg,eq,eq,,,1,,
 a1,2,Weter,,Weteringlaan,weg,eq,eq,,,1,,prefix matches bovenaan sorteren
 a1,3,Weter,,Weteringdwarsstraat,weg,eq,eq,1,,,,Aantallen staan nu op 3
-a1,8,STRUYCKENKD,,A.A.H. Struijckenkade,weg,eq,eq,,,,,ook substring matching in naam 17/24-positie
 a1,9,A.A.H. Struijckenkade,,A.A.H. Struijckenkade,weg,eq,eq,,,,,interpunctie negeren (in dit geval match met naam 17-posities)
 a1,10,A.A.H. Struijckenkade 2,,A.A.H. Struijckenkade 2,vbo,eq,eq,,,,,
 a1,11,1e Glanshof 2,,1e Glanshof 2,vbo,eq,eq,1,,,,known issue: 1e glanshof word niet goed herkend als straat met huisnummer

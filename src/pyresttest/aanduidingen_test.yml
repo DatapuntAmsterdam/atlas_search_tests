@@ -48,7 +48,7 @@
 
 - test:
     - name: "nummeraanduidingsearch"
-    - url: "/atlas/search/adres/?q=E%20Cornelisstr"
+    - url: "/atlas/search/adres/?q=Cornelisstr"
     - validators:
         - extract_test: {jsonpath_mini: "results", test: "exists"}
         - compare: {jsonpath_mini: "results.0.straatnaam", comparator: "eq", expected: "Evert Cornelisstraat"}

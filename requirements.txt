@@ -6,4 +6,4 @@ pycurl==7.43.0
 pyresttest==1.7.1
 requests==2.20.0
 PyJWT>=1.5.2
-PyYAML==4.2b4
+PyYAML==5.4
